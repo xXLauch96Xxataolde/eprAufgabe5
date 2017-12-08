@@ -13,6 +13,14 @@ __credits__ = "If you would like to thank somebody \
 __email__ = "your email address" 
 
 
+def read_tic(tic):
+    return tic
+
+def inc_tic():
+    a = read_tic()
+    return(a+1)
+    
+
 def color_change(event):
     print("something", event.widget)   
     event.widget.config(bg="lightgreen")
