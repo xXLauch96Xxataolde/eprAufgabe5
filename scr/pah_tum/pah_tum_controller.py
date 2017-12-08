@@ -11,5 +11,5 @@ __credits__ = "If you would like to thank somebody \
               i.e. an other student for her code or leave it out" 
 __email__ = "your email address" 
 
-def pah_tum_controller():
+def controller():
     print("do some shit")
