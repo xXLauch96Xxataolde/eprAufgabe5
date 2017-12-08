@@ -28,7 +28,6 @@ def menue():
 
 
 def main():
-    print("ASdasd")
     while(True):
         menue()
         inp = input()
