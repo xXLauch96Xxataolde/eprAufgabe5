@@ -35,6 +35,7 @@ def main():
         if (inp == "1"):
             pah_tum_controller.controller()
         if (inp == "5"):
+            pah_tum_controller.autism()
             sys.exit()
 
 if __name__ == '__main__':
