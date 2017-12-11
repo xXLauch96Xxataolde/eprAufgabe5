@@ -125,6 +125,12 @@ class PahTum():
             key = str(n_random) + str(m_random)
             self.tiles_dict[key] = "blocked"
 
+            a = ".!label33"
+
+            self.a.config(bg = "black")
+
+
+
     def coord_to_tile_number(self, coord):
         tile_number = str(int(coord[0]) * 7 + int(coord[1]) + 1)
         return tile_number
