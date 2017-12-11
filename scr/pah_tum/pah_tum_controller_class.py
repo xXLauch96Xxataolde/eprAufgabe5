@@ -124,9 +124,12 @@ class PahTum():
             key = str(n_random) + str(m_random)
             self.tiles_dict[key] = "blocked"
 
+            key = self.coord_to_tile_number(key)
+            print(key)
             slaves_list = []
-            slaves_list.append(self.root.grid_slaves())
-            self.a.config(bg = "black")
+            slaves_list.extend(self.root.grid_slaves())
+            print(slaves_list)
+            slaves_list[int(key)].config(bg = "black")
 
 
 
