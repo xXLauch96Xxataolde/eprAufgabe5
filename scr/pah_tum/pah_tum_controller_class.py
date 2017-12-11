@@ -22,12 +22,19 @@ class PahTum():
         self.root.attributes("-topmost", True)  # put the root to foreground
         self.root.geometry('+1000+0')  # sets the default window position
         self.root.title("Pah Tuuuum, Niels ist duuuum")
+        count = 0
         for i in range(7):
             for j in range(7):
-                # every even i should get a border
+                count += 1
+
                 self.a = "l" + str(i + 1) + str(j + 1)
-                self.a = tk.Label(self.root, text=self.a, width=6, height=3, bg="light cyan", borderwidth=0.1,
+
+                if count % 2 == 0:
+                    self.a = tk.Label(self.root, text=self.a, width=6, height=3, bg="light cyan", borderwidth=0.1,
                                   relief="solid")
+                else:
+                    self.a = tk.Label(self.root, text=self.a, width=6, height=3, bg="light cyan", borderwidth=0.5, highlightbackground= "black")
+
                 self.a.bind("<Button-1>", self.color_change)
                 self.a.grid(row=i, column=j)
         self.tic_label = tk.Label(self.root, text="Tic: ", width=6, height=3,
