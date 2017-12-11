@@ -30,7 +30,7 @@ class PahTum():
                 self.a = "l" + str(i + 1) + str(j + 1)
 
 
-                self.a = tk.Label(self.root, text=self.a, width=6, height=3, bg="light cyan", borderwidth=0.5, highlightbackground= "black")
+                self.a = tk.Label(self.root, text=self.a, width=6, height=3, bg="light cyan", borderwidth=0.5)
 
                 self.a.bind("<Button-1>", self.color_change)
                 self.a.grid(row=i, column=j)
