@@ -116,7 +116,6 @@ class PahTum():
 
     def tiles_blocker(self):
         tiles_number_to_block = [5, 7, 9, 11, 13]
-
         tiles_number_to_block = random.choice(tiles_number_to_block)
 
         for i in range(tiles_number_to_block):
@@ -125,8 +124,8 @@ class PahTum():
             key = str(n_random) + str(m_random)
             self.tiles_dict[key] = "blocked"
 
-            a = ".!label33"
-
+            slaves_list = []
+            slaves_list.append(self.root.grid_slaves())
             self.a.config(bg = "black")
 
 
