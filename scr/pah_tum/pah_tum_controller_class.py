@@ -118,6 +118,12 @@ class PahTum():
         tiles_number_to_block = [5, 7, 9, 11, 13]
         tiles_number_to_block = random.choice(tiles_number_to_block)
 
+        slaves_list = []
+        slaves_list.extend(self.root.grid_slaves())
+        slaves_list.remove(slaves_list[0])
+        slaves_list.reverse()
+        print(slaves_list)
+
         for i in range(tiles_number_to_block):
             n_random = random.randint(0, 6)
             m_random = random.randint(0, 6)
@@ -126,10 +132,7 @@ class PahTum():
 
             key = self.coord_to_tile_number(key)
             print(key)
-            slaves_list = []
-            slaves_list.extend(self.root.grid_slaves())
-            print(slaves_list)
-            slaves_list[int(key)].config(bg = "black")
+            slaves_list[int(key) - 1].config(bg = "black")
 
 
 
