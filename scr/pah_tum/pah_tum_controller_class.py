@@ -27,7 +27,7 @@ class PahTum():
                 self.a = tk.Label(self.root, text=self.a, width=5, height=5, bg = "light cyan")
                 self.a.bind("<Button-1>", self.color_change)
                 self.a.grid(row=i, column=j)
-        self.tic_label = tk.Label(self.root, textvariable=self.tic, width=5, height=5, bg = "cyan")
+        self.tic_label = tk.Label(self.root, text="Tic: ", width=5, height=5, bg = "cyan")
         self.tic_label.grid(row = 1, column = 8)
         self.root.mainloop
 
@@ -49,6 +49,8 @@ class PahTum():
             event.widget.config(bg="lightgreen")
         else:
             event.widget.config(bg="tomato")
+        tic_str = "Tic: " + str(self.read_tic())
+        self.tic_label.config(text = tic_str)
 
     def autism(self):
         """Autism - to be renamed
