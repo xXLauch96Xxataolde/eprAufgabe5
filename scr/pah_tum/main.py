@@ -6,6 +6,8 @@ Additional information if required and more infos. Complete sentences please.
 import random
 import pah_tum_controller
 import sys
+from pah_tum_controller_class import PahTum
+import tkinter as tk
 
 __author__ = "123456: John Cleese, 654321: Terry Gilliam"  # put your data here
 __copyright__ = "Copyright 2017/2018 - EPR-Goethe-Uni" 
@@ -20,7 +22,7 @@ def menue():
     print(".......................................")
     print("...Press 1 to start Pah Tum............")
     print("...Press 2 to start Pah Tum GUI Mode...")
-    print(".......................................")
+    print("...Press 3 to Start Pah Tum Class Mode.")
     print(".......................................")
     print("...Press 5 to Exit.....................")
     print(".......................................")
@@ -31,8 +33,12 @@ def main():
     while(True):
         menue()
         inp = input()
-        if (inp == "1"):
-            pah_tum_controller.controller()
+        if (inp == "2"):
+            controller.controller()
+        if (inp == "3"):
+            root = tk.Tk()
+            obj = PahTum(root)
+            root.mainloop()
         if (inp == "5"):
             pah_tum_controller.autism()
             sys.exit()
