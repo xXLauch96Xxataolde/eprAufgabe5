@@ -100,4 +100,4 @@ class PahTum():
 
         print(dic_key1, dic_key2)
 
-        return dic_key1+dic_key2
+        return str(dic_key1) + str(dic_key2)
