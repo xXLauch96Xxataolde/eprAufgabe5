@@ -14,7 +14,7 @@ __email__ = "your email address"
 
 
 class PahTum():
-    tiles_dic = {}
+    tiles_dict = {}
 
     def __init__(self, root, tic=0):
         self.root = root
@@ -25,16 +25,17 @@ class PahTum():
         for i in range(7):
             for j in range(7):
                 self.a = "l" + str(i + 1) + str(j + 1)
-                self.a = tk.Label(self.root, text=self.a, width=5, height=5, bg = "light cyan")
+                self.a = tk.Label(self.root, text=self.a, width=5, height=5, bg="light cyan")
                 self.a.bind("<Button-1>", self.color_change)
                 self.a.grid(row=i, column=j)
-        self.tic_label = tk.Label(self.root, text="Tic: ", width=5, height=5, bg = "cyan")
-        self.tic_label.grid(row = 1, column = 8)
+        self.tic_label = tk.Label(self.root, text="Tic: ", width=5, height=5, bg="cyan")
+        self.tic_label.grid(row=1, column=8)
         print(self.root.grid_slaves())
         self.root.mainloop
 
-        self.tiles_dic_constructor()
-        print(self.tiles_dic)
+        self.tiles_dict_constructor()
+        self.tiles_blocker()
+        print(self.tiles_dict)
 
     def read_tic(self):
         return self.tic
@@ -45,22 +46,31 @@ class PahTum():
 
     def color_change(self, event):
         print("something", event.widget)
-        self.inc_tic(self.tic)
+        
         print("Tic", self.tic)
 
         self.label_coordinator(event.widget)
 
-        if (self.tic % 2 == 0):
-            event.widget.config(bg="lightgreen")
-            self.tiles_dic[self.label_coordinator(event.widget)] = "player1"
+        if (self.tic % 2 == 0):            
+            if (self.tiles_dict[self.label_coordinator(event.widget)] == ""):
+                self.tiles_dict[self.label_coordinator(event.widget)] = "player1"            
+                event.widget.config(bg="lightgreen")
+                tic_str = "Tic: " + str(self.read_tic())
+                self.tic_label.config(text=tic_str)
+                self.inc_tic(self.tic)
+                print(self.tiles_dict)  
+            
         else:
-            event.widget.config(bg="tomato")
-            self.tiles_dic[self.label_coordinator(event.widget)] = "player2"
+            if (self.tiles_dict[self.label_coordinator(event.widget)] == ""):
+                self.tiles_dict[self.label_coordinator(event.widget)] = "player2"            
+                event.widget.config(bg="tomato")
+                tic_str = "Tic: " + str(self.read_tic())
+                self.tic_label.config(text=tic_str)
+                self.inc_tic(self.tic)
+                print(self.tiles_dict)         
+           
+       
 
-        tic_str = "Tic: " + str(self.read_tic())
-        self.tic_label.config(text = tic_str)
-
-        print(self.tiles_dic)
 
     def autism(self):
         """Autism - to be renamed
@@ -82,11 +92,11 @@ class PahTum():
     def controller(self):
         print("Controller does nothing.")
 
-    def tiles_dic_constructor(self):
+    def tiles_dict_constructor(self):
         for i in range(7):
             for j in range(7):
                 a = str(i) + str(j)
-                self.tiles_dic[a] = ""
+                self.tiles_dict[a] = ""
 
     def label_coordinator(self, label_widget):
         if len(str(label_widget)) == 9:
@@ -98,7 +108,22 @@ class PahTum():
 
         coordninates = int(coordninates)
 
-        dic_key1 = (coordninates - 1) // 7
-        dic_key2 = (coordninates - 1) % 7
+        dict_key1 = (coordninates - 1) // 7
+        dict_key2 = (coordninates - 1) % 7
 
-        return str(dic_key1) + str(dic_key2)
+        return str(dict_key1) + str(dict_key2)
+    
+    def tiles_blocker(self):
+        tiles_number_to_block = [5,7,9,11,13]
+        n_random = [0,1,2,3,4,5,6]
+        m_random = [0,1,2,3,4,5,6]
+        tiles_number_to_block = random.choice(tiles_number_to_block)
+        
+        for (i in range(tiles_number_to_block)):
+            n = random.choice(n_random)
+            m = random.choice(m_random)
+            key = str(n)+str(m)
+            key = int(key)
+            tiles_dict[key] = "blocked"
+
+        
