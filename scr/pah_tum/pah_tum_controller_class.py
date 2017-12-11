@@ -51,8 +51,11 @@ class PahTum():
 
         if (self.tic % 2 == 0):
             event.widget.config(bg="lightgreen")
+            self.tiles_dic[self.label_coordinator(event.widget)] = "player1"
         else:
             event.widget.config(bg="tomato")
+            self.tiles_dic[self.label_coordinator(event.widget)] = "player2"
+
         tic_str = "Tic: " + str(self.read_tic())
         self.tic_label.config(text = tic_str)
 
@@ -96,3 +99,5 @@ class PahTum():
         dic_key2 = (coordninates - 1) % 7
 
         print(dic_key1, dic_key2)
+
+        return dic_key1+dic_key2
