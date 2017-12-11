@@ -31,6 +31,9 @@ class PahTum():
         self.tic_label.grid(row = 1, column = 8)
         self.root.mainloop
 
+        self.tiles_dic_constructor()
+        print(self.tiles_dic)
+
     def read_tic(self):
         return self.tic
 
@@ -66,3 +69,9 @@ class PahTum():
 
     def controller(self):
         print("Controller does nothing.")
+
+    def tiles_dic_constructor(self):
+        for i in range(7):
+            for j in range(7):
+                a = str(i) + str(j)
+                self.tiles_dic[a] = ""
