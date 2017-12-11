@@ -21,6 +21,7 @@ class PahTum():
         self.tic = tic
         self.root.attributes("-topmost", True)  # put the root to foreground
         self.root.geometry('+1000+0')  # sets the default window position
+        self.root.title("Pah Tuuuum")
         for i in range(7):
             for j in range(7):
                 self.a = "l" + str(i + 1) + str(j + 1)
@@ -58,6 +59,8 @@ class PahTum():
 
         tic_str = "Tic: " + str(self.read_tic())
         self.tic_label.config(text = tic_str)
+
+        print(self.tiles_dic)
 
     def autism(self):
         """Autism - to be renamed
