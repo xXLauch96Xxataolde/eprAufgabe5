@@ -121,7 +121,6 @@ class PahTum():
             n = random.choice(n_random)
             m = random.choice(m_random)
             key = str(n) + str(m)
-            key = int(key)
             self.tiles_dict[key] = "blocked"
 
         
