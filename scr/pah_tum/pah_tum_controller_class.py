@@ -1,4 +1,4 @@
-"""Docstring: A very short sentence explaining the function. < 79 characters. 
+"""Docstring: A very short sentence explaining the function. < 79 characters.
 
 Additional information if required and more infos. Complete sentences please.
 """
@@ -30,7 +30,8 @@ class PahTum():
                                   relief="solid")
                 self.a.bind("<Button-1>", self.color_change)
                 self.a.grid(row=i, column=j)
-        self.tic_label = tk.Label(self.root, text="Tic: ", width=6, height=3, bg="plum2", borderwidth=1, relief="solid")
+        self.tic_label = tk.Label(self.root, text="Tic: ", width=6, height=3,
+                                  bg="plum2", borderwidth=1, relief="solid")
         self.tic_label.grid(row=1, column=8)
         print(self.root.grid_slaves())
         self.root.mainloop
@@ -75,11 +76,10 @@ class PahTum():
                 self.inc_tic(self.tic)
                 print(self.tiles_dict)
 
-
     def autism(self):
         """Autism - to be renamed
 
-        Here we should either open n = NN>0 Windows or more in sequence or open n windows all together
+        Here we should either open n = NN>0 Windows or more in sequence or openn windows all together
         We have to load special images for each a = root object. Like buy viagra, sexy girls in your neihghbourhood
         lets find out bilals address to get him spooked a little bit.
         Sexy girls in (Bilals Area) are looking for fun
@@ -119,9 +119,9 @@ class PahTum():
 
     def on_enter(self, event):
         self.tic_label.configure(text="Blocked")
-        
+
     def on_leave(self, event):
-        self.tic_label.configure(text="Tic : ")
+        self.tic_label.configure(text="Tic: " + str(self.read_tic()))
 
     def tiles_blocker(self):
         tiles_number_to_block = [5, 7, 9, 11, 13]
@@ -149,5 +149,3 @@ class PahTum():
     def coord_to_tile_number(self, coord):
         tile_number = str(int(coord[0]) * 7 + int(coord[1]) + 1)
         return tile_number
-    
-
