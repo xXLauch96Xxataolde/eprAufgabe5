@@ -95,9 +95,7 @@ class PahTum():
 
         coordninates = int(coordninates)
 
-        dic_key1 = coordninates // 7
+        dic_key1 = (coordninates - 1) // 7
         dic_key2 = (coordninates - 1) % 7
-
-        print(dic_key1, dic_key2)
 
         return str(dic_key1) + str(dic_key2)
