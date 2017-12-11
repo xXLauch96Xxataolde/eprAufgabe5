@@ -24,11 +24,12 @@ class PahTum():
         self.root.title("Pah Tuuuum")
         for i in range(7):
             for j in range(7):
+                # every even i should get a border
                 self.a = "l" + str(i + 1) + str(j + 1)
-                self.a = tk.Label(self.root, text=self.a, width=5, height=5, bg="light cyan")
+                self.a = tk.Label(self.root, text=self.a, width=5, height=5, bg="light cyan", borderwidth=0.1, relief="solid")
                 self.a.bind("<Button-1>", self.color_change)
                 self.a.grid(row=i, column=j)
-        self.tic_label = tk.Label(self.root, text="Tic: ", width=5, height=5, bg="cyan")
+        self.tic_label = tk.Label(self.root, text="Tic: ", width=5, height=5, bg="cyan", borderwidth=1, relief="solid")
         self.tic_label.grid(row=1, column=8)
         print(self.root.grid_slaves())
         self.root.mainloop
@@ -68,9 +69,6 @@ class PahTum():
                 self.tic_label.config(text=tic_str)
                 self.inc_tic(self.tic)
                 print(self.tiles_dict)         
-           
-       
-
 
     def autism(self):
         """Autism - to be renamed
@@ -114,16 +112,16 @@ class PahTum():
         return str(dict_key1) + str(dict_key2)
     
     def tiles_blocker(self):
-        tiles_number_to_block = [5,7,9,11,13]
-        n_random = [0,1,2,3,4,5,6]
-        m_random = [0,1,2,3,4,5,6]
+        tiles_number_to_block = [5, 7, 9, 11, 13]
+        n_random = [0, 1, 2, 3, 4, 5, 6]
+        m_random = [0, 1, 2, 3, 4, 5, 6]
         tiles_number_to_block = random.choice(tiles_number_to_block)
         
-        for (i in range(tiles_number_to_block)):
+        for i in range(tiles_number_to_block):
             n = random.choice(n_random)
             m = random.choice(m_random)
-            key = str(n)+str(m)
+            key = str(n) + str(m)
             key = int(key)
-            tiles_dict[key] = "blocked"
+            self.tiles_dict[key] = "blocked"
 
         
