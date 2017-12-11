@@ -30,6 +30,11 @@ def menue():
 
 
 def main():
+    # delete at end of construction work
+    root = tk.Tk()
+    obj = PahTum(root)
+    root.mainloop()
+    # delete part above - Wear your hard hat
     while(True):
         menue()
         inp = input()
