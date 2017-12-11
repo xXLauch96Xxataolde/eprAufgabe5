@@ -29,6 +29,7 @@ class PahTum():
                 self.a.grid(row=i, column=j)
         self.tic_label = tk.Label(self.root, text="Tic: ", width=5, height=5, bg = "cyan")
         self.tic_label.grid(row = 1, column = 8)
+        print(self.root.grid_slaves())
         self.root.mainloop
 
         self.tiles_dic_constructor()
@@ -45,6 +46,9 @@ class PahTum():
         print("something", event.widget)
         self.inc_tic(self.tic)
         print("Tic", self.tic)
+
+        self.label_coordinator(event.widget)
+
         if (self.tic % 2 == 0):
             event.widget.config(bg="lightgreen")
         else:
@@ -77,3 +81,18 @@ class PahTum():
             for j in range(7):
                 a = str(i) + str(j)
                 self.tiles_dic[a] = ""
+
+    def label_coordinator(self, label_widget):
+        if len(str(label_widget)) == 9:
+            coordninates = str(label_widget)[-2:]
+        elif len(str(label_widget)) == 8:
+            coordninates = str(label_widget)[-1]
+        else:
+            coordninates = 1
+
+        coordninates = int(coordninates)
+
+        dic_key1 = coordninates // 7
+        dic_key2 = (coordninates - 1) % 7
+
+        print(dic_key1, dic_key2)
