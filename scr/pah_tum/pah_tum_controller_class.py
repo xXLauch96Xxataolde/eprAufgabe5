@@ -26,7 +26,8 @@ class PahTum():
             for j in range(7):
                 # every even i should get a border
                 self.a = "l" + str(i + 1) + str(j + 1)
-                self.a = tk.Label(self.root, text=self.a, width=5, height=5, bg="light cyan", borderwidth=0.1, relief="solid")
+                self.a = tk.Label(self.root, text=self.a, width=5, height=5, bg="light cyan", borderwidth=0.1,
+                                  relief="solid")
                 self.a.bind("<Button-1>", self.color_change)
                 self.a.grid(row=i, column=j)
         self.tic_label = tk.Label(self.root, text="Tic: ", width=5, height=5, bg="cyan", borderwidth=1, relief="solid")
@@ -38,6 +39,8 @@ class PahTum():
         self.tiles_blocker()
         print(self.tiles_dict)
 
+        print(self.coord_to_tile_number("15"))
+
     def read_tic(self):
         return self.tic
 
@@ -47,28 +50,28 @@ class PahTum():
 
     def color_change(self, event):
         print("something", event.widget)
-        
+
         print("Tic", self.tic)
 
         self.label_coordinator(event.widget)
 
-        if (self.tic % 2 == 0):            
+        if (self.tic % 2 == 0):
             if (self.tiles_dict[self.label_coordinator(event.widget)] == ""):
-                self.tiles_dict[self.label_coordinator(event.widget)] = "player1"            
+                self.tiles_dict[self.label_coordinator(event.widget)] = "player1"
                 event.widget.config(bg="lightgreen")
                 tic_str = "Tic: " + str(self.read_tic())
                 self.tic_label.config(text=tic_str)
                 self.inc_tic(self.tic)
-                print(self.tiles_dict)  
-            
+                print(self.tiles_dict)
+
         else:
             if (self.tiles_dict[self.label_coordinator(event.widget)] == ""):
-                self.tiles_dict[self.label_coordinator(event.widget)] = "player2"            
+                self.tiles_dict[self.label_coordinator(event.widget)] = "player2"
                 event.widget.config(bg="tomato")
                 tic_str = "Tic: " + str(self.read_tic())
                 self.tic_label.config(text=tic_str)
                 self.inc_tic(self.tic)
-                print(self.tiles_dict)         
+                print(self.tiles_dict)
 
     def autism(self):
         """Autism - to be renamed
@@ -110,17 +113,18 @@ class PahTum():
         dict_key2 = (coordninates - 1) % 7
 
         return str(dict_key1) + str(dict_key2)
-    
+
     def tiles_blocker(self):
         tiles_number_to_block = [5, 7, 9, 11, 13]
-        n_random = [0, 1, 2, 3, 4, 5, 6]
-        m_random = [0, 1, 2, 3, 4, 5, 6]
+
         tiles_number_to_block = random.choice(tiles_number_to_block)
-        
+
         for i in range(tiles_number_to_block):
-            n = random.choice(n_random)
-            m = random.choice(m_random)
-            key = str(n) + str(m)
+            n_random = random.randint(0, 6)
+            m_random = random.randint(0, 6)
+            key = str(n_random) + str(m_random)
             self.tiles_dict[key] = "blocked"
 
-        
+    def coord_to_tile_number(self, coord):
+        tile_number = str(int(coord[0]) * 7 + int(coord[1]) + 1)
+        return tile_number
