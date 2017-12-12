@@ -69,9 +69,9 @@ class PahTum():
                 self.tiles_dict[self.label_coordinator(
                     event.widget)] = "player1"
                 event.widget.config(bg="lightgreen")
+                self.inc_tic(self.tic)
                 tic_str = "Tic: " + str(self.read_tic())
                 self.tic_label.config(text=tic_str)
-                self.inc_tic(self.tic)
                 print(self.tiles_dict)
 
         else:
@@ -79,9 +79,9 @@ class PahTum():
                 self.tiles_dict[self.label_coordinator(
                     event.widget)] = "player2"
                 event.widget.config(bg="tomato")
+                self.inc_tic(self.tic)
                 tic_str = "Tic: " + str(self.read_tic())
                 self.tic_label.config(text=tic_str)
-                self.inc_tic(self.tic)
                 print(self.tiles_dict)
 
         self.get_score()
