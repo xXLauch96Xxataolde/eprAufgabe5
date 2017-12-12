@@ -24,6 +24,12 @@ class PahTum():
         self.root.attributes("-topmost", True)  # put the root to foreground
         self.root.geometry('+900+50')  # sets the default window position
         self.root.title("Pah Tuuuum, Niels ist duuuum")
+        while True:
+            self.blocked_numb = tk.StringVar(self.root)
+            self.blocked_numb.set("Select number")  # initial value
+            self.blocked_tiles = tk.OptionMenu(self.root, self.blocked_numb, "one", "two", "three")
+            self.blocked_tiles.grid(row = 6, column = 8)
+
         count = 0
         for i in range(7):
             for j in range(7):
@@ -50,6 +56,9 @@ class PahTum():
                                    bg="mediumpurple2", borderwidth=1, relief="solid")
         self.undo_label.grid(row=3, column=8)
         self.undo_label.bind("<Button-1>", self.undo_func)  # Undo Button constructed
+
+        self.button1 = tk.Button(self.root, text="About SPIES", width=20, command=self.game_over)
+        self.button1.grid(row=4, column = 8)
 
         print(self.root.grid_slaves())
         self.root.mainloop
@@ -259,3 +268,10 @@ class PahTum():
         column_score_2 = self.get_score_column("player2")
         total_score_2 += row_score_2 + column_score_2
         self.score_label_2.config(text=str(total_score_2))
+
+    def game_over(self):
+        self.toplevel = tk.Toplevel()
+        self.label1 = tk.Label(self.toplevel, text="Game Over", height=6, width=18)
+        self.label1.pack()
+        self.toplevel.attributes("-topmost", True)  # put the root to foreground
+        self.toplevel.geometry('+920+70')
