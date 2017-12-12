@@ -37,9 +37,13 @@ class PahTum():
                                   bg="plum2", borderwidth=1, relief="solid")
         self.tic_label.grid(row=0, column=8)
 
-        self.score_label = tk.Label(self.root, text="Score: ", width=6, height=3,
+        self.score_label_1 = tk.Label(self.root, text="Score: ", width=6, height=3,
                                     bg="palegreen", borderwidth=1, relief="solid")
-        self.score_label.grid(row=1, column=8)
+        self.score_label_1.grid(row=1, column=8)
+
+        self.score_label_2 = tk.Label(self.root, text="Score: ", width=6, height=3,
+                                    bg="tomato", borderwidth=1, relief="solid")
+        self.score_label_2.grid(row=2, column=8)
 
         print(self.root.grid_slaves())
         self.root.mainloop
@@ -101,11 +105,10 @@ class PahTum():
             a = tk.Tk()
             a.attributes("-topmost", True)
             photo = PhotoImage(file="cat.gif")
-            w = tk.Label(a, image = photo)
+            w = tk.Label(a, image=photo)
             w.photo = photo
             w.pack()
-            
-            
+
     def controller(self):
         print("Controller does nothing.")
 
@@ -163,65 +166,69 @@ class PahTum():
         tile_number = str(int(coord[0]) * 7 + int(coord[1]) + 1)
         return tile_number
 
-    def get_score_column(self):
+    def get_score_column(self, player):
         column_score = 0
         for j in range(7):
             possible_score = ""
             for i in range(7):
                 key = str(i) + str(j)
 
-                if (self.tiles_dict[key] == ""):
-                    possible_score += "_"
-                elif (self.tiles_dict[key] == "blocked"):
-                    possible_score += "blocked"
-                elif (self.tiles_dict[key] == "player1"):
+                if (self.tiles_dict[key] == player):
                     possible_score += self.tiles_dict[key]
+                else:
+                    possible_score += "_"
 
-            if (possible_score.count("player1" * 7) != 0):
+            if (possible_score.count(player * 7) != 0):
                 column_score += 119
-            elif (possible_score.count("player1" * 6) != 0):
+            elif (possible_score.count(player * 6) != 0):
                 column_score += 56
-            elif (possible_score.count("player1" * 5) != 0):
+            elif (possible_score.count(player * 5) != 0):
                 column_score += 25
-            elif (possible_score.count("player1" * 4) != 0):
+            elif (possible_score.count(player * 4) != 0):
                 column_score += 10
-            elif (possible_score.count("player1" * 3) != 0):
-                column_score += 3 * possible_score.count("player1" * 3)
+            elif (possible_score.count(player * 3) != 0):
+                column_score += 3 * possible_score.count(player * 3)
 
             print("ColumnScore:", column_score)
-        return(column_score)
+        return (column_score)
 
-    def get_score_row(self):
+    def get_score_row(self, player):
         row_score = 0
         for i in range(7):
             possible_score = ""
             for j in range(7):
                 key = str(i) + str(j)
 
-                if (self.tiles_dict[key] == ""):
-                    possible_score += "_"
-                elif (self.tiles_dict[key] == "blocked"):
-                    possible_score += "blocked"
-                elif (self.tiles_dict[key] == "player1"):
+                if (self.tiles_dict[key] == player):
                     possible_score += self.tiles_dict[key]
+                else:
+                    possible_score += "_"
 
-            if (possible_score.count("player1" * 7) != 0):
+            print(possible_score)
+
+            if (possible_score.count(player * 7) != 0):
                 row_score += 119
-            elif (possible_score.count("player1" * 6) != 0):
+            elif (possible_score.count(player * 6) != 0):
                 row_score += 56
-            elif (possible_score.count("player1" * 5) != 0):
+            elif (possible_score.count(player * 5) != 0):
                 row_score += 25
-            elif (possible_score.count("player1" * 4) != 0):
+            elif (possible_score.count(player * 4) != 0):
                 row_score += 10
-            elif (possible_score.count("player1" * 3) != 0):
-                row_score += 3 * possible_score.count("player1" * 3)
+            elif (possible_score.count(player * 3) != 0):
+                row_score += 3 * possible_score.count(player * 3)
 
             print("___RowScore:", row_score)
-        return(row_score)
+        return (row_score)
 
     def get_score(self):
-        total_score = 0
-        row_score = self.get_score_row()
-        column_score = self.get_score_column()
-        total_score += row_score + column_score
-        self.score_label.config(text=str(total_score))
+        total_score_1 = 0
+        row_score_1 = self.get_score_row("player1")
+        column_score_1 = self.get_score_column("player1")
+        total_score_1 += row_score_1 + column_score_1
+        self.score_label_1.config(text=str(total_score_1))
+
+        total_score_2 = 0
+        row_score_2 = self.get_score_row("player2")
+        column_score_2 = self.get_score_column("player2")
+        total_score_2 += row_score_2 + column_score_2
+        self.score_label_2.config(text=str(total_score_2))
