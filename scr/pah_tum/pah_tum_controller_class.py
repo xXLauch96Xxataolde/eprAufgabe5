@@ -39,18 +39,18 @@ class PahTum():
         self.tic_label.grid(row=0, column=8)
 
         self.score_label_1 = tk.Label(self.root, text="Score: ", width=6, height=3,
-                                    bg="palegreen", borderwidth=1, relief="solid")
+                                      bg="palegreen", borderwidth=1, relief="solid")
         self.score_label_1.grid(row=1, column=8)
 
         self.score_label_2 = tk.Label(self.root, text="Score: ", width=6, height=3,
-                                    bg="tomato", borderwidth=1, relief="solid")
+                                      bg="tomato", borderwidth=1, relief="solid")
         self.score_label_2.grid(row=2, column=8)
 
         self.undo_label = tk.Label(self.root, text="Undo", width=6, height=3,
-                                    bg="mediumpurple2", borderwidth=1, relief="solid")
+                                   bg="mediumpurple2", borderwidth=1, relief="solid")
         self.undo_label.grid(row=3, column=8)
         self.undo_label.bind("<Button-1>", self.undo_func)  # Undo Button constructed
-        
+
         print(self.root.grid_slaves())
         self.root.mainloop
 
@@ -59,13 +59,13 @@ class PahTum():
         print(self.tiles_dict)
 
         print(self.coord_to_tile_number("15"))
-    
+
     def undo_func(self, event):
-        if len(self.move_list) != 0:            
+        if len(self.move_list) != 0:
             print(self.move_list)
             slaves_list = []
             slaves_list.extend(self.root.grid_slaves())
-            slaves_list.reverse()            
+            slaves_list.reverse()
             key = self.move_list[-1]
             self.tiles_dict[key] = ""
             key = self.coord_to_tile_number(key)
@@ -74,7 +74,7 @@ class PahTum():
             self.tic = self.tic - 1
             self.tic_label.config(text="Tic: " + str(self.tic))
             self.get_score()
-    
+
     def read_tic(self):
         return self.tic
 
@@ -83,14 +83,14 @@ class PahTum():
         self.tic = (a + 1)
 
     def color_change(self, event):
-        
+
         if (self.tic < 49):
             print("something", event.widget)
-    
+
             print("Tic", self.tic)
-    
+
             self.label_coordinator(event.widget)
-    
+
             if (self.tic % 2 == 0):
                 if (self.tiles_dict[self.label_coordinator(event.widget)] == ""):
                     self.tiles_dict[self.label_coordinator(
@@ -101,7 +101,7 @@ class PahTum():
                     self.tic_label.config(text=tic_str)
                     print(self.tiles_dict)
                     self.move_list.append(self.label_coordinator(event.widget))
-    
+
             else:
                 if (self.tiles_dict[self.label_coordinator(event.widget)] == ""):
                     self.tiles_dict[self.label_coordinator(
@@ -112,8 +112,7 @@ class PahTum():
                     self.tic_label.config(text=tic_str)
                     print(self.tiles_dict)
                     self.move_list.append(self.label_coordinator(event.widget))
-            
-            
+
             self.get_score()
         else:
             print("GAME OVER GAME OVER")
@@ -217,7 +216,7 @@ class PahTum():
             elif (possible_score.count(player * 3) != 0):
                 column_score += 3 * possible_score.count(player * 3)
 
-            # print("ColumnScore:", column_score)
+                # print("ColumnScore:", column_score)
         return (column_score)
 
     def get_score_row(self, player):
@@ -245,7 +244,7 @@ class PahTum():
             elif (possible_score.count(player * 3) != 0):
                 row_score += 3 * possible_score.count(player * 3)
 
-            # print("___RowScore:", row_score)
+                # print("___RowScore:", row_score)
         return (row_score)
 
     def get_score(self):
