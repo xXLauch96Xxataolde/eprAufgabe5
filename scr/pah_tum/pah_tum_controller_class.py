@@ -24,11 +24,20 @@ class PahTum():
         self.root.attributes("-topmost", True)  # put the root to foreground
         self.root.geometry('+900+50')  # sets the default window position
         self.root.title("Pah Tuuuum, Niels ist duuuum")
-        while True:
-            self.blocked_numb = tk.StringVar(self.root)
-            self.blocked_numb.set("Select number")  # initial value
-            self.blocked_tiles = tk.OptionMenu(self.root, self.blocked_numb, "one", "two", "three")
-            self.blocked_tiles.grid(row = 6, column = 8)
+
+        self.wait = tk.Toplevel()
+        self.wait.attributes("-topmost", True)
+        self.wait.geometry('+900+50')  # sets the default window position
+        self.label = tk.Label(self.wait, text="Please selected number of blocked tiles...")
+        self.blocked_numb = tk.StringVar(self.wait)
+        self.blocked_numb.set("Select number")  # initial value
+        self.blocked_tiles = tk.OptionMenu(self.wait, self.blocked_numb, "5", "7", "9", "11", "13")
+        self.click = tk.Button(self.wait, text="OK", command=self.enter_configs)
+        self.label.pack()
+        self.blocked_tiles.pack()
+        self.click.pack()
+
+        self.root.wm_withdraw()
 
         count = 0
         for i in range(7):
@@ -57,17 +66,20 @@ class PahTum():
         self.undo_label.grid(row=3, column=8)
         self.undo_label.bind("<Button-1>", self.undo_func)  # Undo Button constructed
 
-        self.button1 = tk.Button(self.root, text="About SPIES", width=20, command=self.game_over)
-        self.button1.grid(row=4, column = 8)
-
         print(self.root.grid_slaves())
         self.root.mainloop
 
         self.tiles_dict_constructor()
-        self.tiles_blocker()
         print(self.tiles_dict)
 
         print(self.coord_to_tile_number("15"))
+
+    def enter_configs(self):
+        print(self.blocked_numb.get())
+        self.tiles_blocker()
+        self.wait.destroy()
+        self.root.deiconify()
+
 
     def undo_func(self, event):
         if len(self.move_list) != 0:
@@ -177,8 +189,8 @@ class PahTum():
         self.tic_label.configure(text="Tic: " + str(self.read_tic()))
 
     def tiles_blocker(self):
-        tiles_number_to_block = [5, 7, 9, 11, 13]
-        tiles_number_to_block = random.choice(tiles_number_to_block)
+
+        tiles_number_to_block = int(self.blocked_numb.get())
 
         slaves_list = []
         slaves_list.extend(self.root.grid_slaves())
