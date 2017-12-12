@@ -73,6 +73,7 @@ class PahTum():
             self.move_list.remove(self.move_list[-1])
             self.tic = self.tic - 1
             self.tic_label.config(text="Tic: " + str(self.tic))
+            self.get_score()
     
     def read_tic(self):
         return self.tic
@@ -82,35 +83,41 @@ class PahTum():
         self.tic = (a + 1)
 
     def color_change(self, event):
-        print("something", event.widget)
-
-        print("Tic", self.tic)
-
-        self.label_coordinator(event.widget)
-
-        if (self.tic % 2 == 0):
-            if (self.tiles_dict[self.label_coordinator(event.widget)] == ""):
-                self.tiles_dict[self.label_coordinator(
-                    event.widget)] = "player1"
-                event.widget.config(bg="lightgreen")
-                self.inc_tic(self.tic)
-                tic_str = "Tic: " + str(self.read_tic())
-                self.tic_label.config(text=tic_str)
-                print(self.tiles_dict)
-                self.move_list.append(self.label_coordinator(event.widget))
-
+        
+        if (self.tic < 49):
+            print("something", event.widget)
+    
+            print("Tic", self.tic)
+    
+            self.label_coordinator(event.widget)
+    
+            if (self.tic % 2 == 0):
+                if (self.tiles_dict[self.label_coordinator(event.widget)] == ""):
+                    self.tiles_dict[self.label_coordinator(
+                        event.widget)] = "player1"
+                    event.widget.config(bg="lightgreen")
+                    self.inc_tic(self.tic)
+                    tic_str = "Tic: " + str(self.read_tic())
+                    self.tic_label.config(text=tic_str)
+                    print(self.tiles_dict)
+                    self.move_list.append(self.label_coordinator(event.widget))
+    
+            else:
+                if (self.tiles_dict[self.label_coordinator(event.widget)] == ""):
+                    self.tiles_dict[self.label_coordinator(
+                        event.widget)] = "player2"
+                    event.widget.config(bg="tomato")
+                    self.inc_tic(self.tic)
+                    tic_str = "Tic: " + str(self.read_tic())
+                    self.tic_label.config(text=tic_str)
+                    print(self.tiles_dict)
+                    self.move_list.append(self.label_coordinator(event.widget))
+            
+            
+            self.get_score()
         else:
-            if (self.tiles_dict[self.label_coordinator(event.widget)] == ""):
-                self.tiles_dict[self.label_coordinator(
-                    event.widget)] = "player2"
-                event.widget.config(bg="tomato")
-                self.inc_tic(self.tic)
-                tic_str = "Tic: " + str(self.read_tic())
-                self.tic_label.config(text=tic_str)
-                print(self.tiles_dict)
-                self.move_list.append(self.label_coordinator(event.widget))
-
-        self.get_score()
+            print("GAME OVER GAME OVER")
+            # something with a prompt box
 
     def autism(self):
         """Autism - to be renamed
