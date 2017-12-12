@@ -27,13 +27,13 @@ class PahTum():
 
         self.wait = tk.Toplevel()
         self.wait.attributes("-topmost", True)
-        self.wait.geometry('+900+50')  # sets the default window position
-        self.label = tk.Label(self.wait, text="Please selected number of blocked tiles...")
+        self.wait.geometry('+900+50')  # sets the default window position to do: Wdht and height
+        self.label_1 = tk.Label(self.wait, text="Please selected number of blocked tiles...")
         self.blocked_numb = tk.StringVar(self.wait)
         self.blocked_numb.set("Select number")  # initial value
         self.blocked_tiles = tk.OptionMenu(self.wait, self.blocked_numb, "5", "7", "9", "11", "13")
         self.click = tk.Button(self.wait, text="OK", command=self.enter_configs)
-        self.label.pack()
+        self.label_1.pack()
         self.blocked_tiles.pack()
         self.click.pack()
 
@@ -75,10 +75,12 @@ class PahTum():
         print(self.coord_to_tile_number("15"))
 
     def enter_configs(self):
-        print(self.blocked_numb.get())
-        self.tiles_blocker()
-        self.wait.destroy()
-        self.root.deiconify()
+        if self.blocked_numb.get() == "Select number":
+            self.label_1.config(text="Please select from dropdown!")
+        else:
+            self.tiles_blocker()
+            self.wait.destroy()
+            self.root.deiconify()
 
 
     def undo_func(self, event):
