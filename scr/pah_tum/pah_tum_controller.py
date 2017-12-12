@@ -38,11 +38,13 @@ def autism():
     Buy our Kitchen Aid for 299
 
     """
-    for i in range(10):
-        a = str(i)
+    for i in range(2):
         a = tk.Tk()
         a.attributes("-topmost", True)
-        a.mainloop()
+        photo = tk.PhotoImage(file="cat.gif")
+        w = tk.Label(a, image=photo)
+        w.image = photo
+        w.pack()
 
 
 def controller():

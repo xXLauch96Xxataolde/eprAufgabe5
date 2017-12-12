@@ -5,7 +5,7 @@ Additional information if required and more infos. Complete sentences please.
 
 import random
 import tkinter as tk
-import re
+from tkinter import PhotoImage
 
 __author__ = "123456: John Cleese, 654321: Terry Gilliam"  # put your data here
 __copyright__ = "Copyright 2017/2018 - EPR-Goethe-Uni"
@@ -97,12 +97,15 @@ class PahTum():
         Buy our Kitchen Aid for 299
 
         """
-        for i in range(10):
-            a = str(i)
+        for i in range(2):
             a = tk.Tk()
             a.attributes("-topmost", True)
-            a.mainloop()
-
+            photo = PhotoImage(file="cat.gif")
+            w = tk.Label(a, image = photo)
+            w.photo = photo
+            w.pack()
+            
+            
     def controller(self):
         print("Controller does nothing.")
 
@@ -186,7 +189,6 @@ class PahTum():
                 column_score += 3 * possible_score.count("player1" * 3)
 
             print("ColumnScore:", column_score)
-            # self.score_label.config(text=str(column_score))
         return(column_score)
 
     def get_score_row(self):
@@ -215,8 +217,6 @@ class PahTum():
                 row_score += 3 * possible_score.count("player1" * 3)
 
             print("___RowScore:", row_score)
-            # self.score_label.config(text=str(row_score))
-
         return(row_score)
 
     def get_score(self):
