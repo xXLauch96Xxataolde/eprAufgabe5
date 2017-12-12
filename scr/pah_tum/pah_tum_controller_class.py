@@ -5,6 +5,7 @@ Additional information if required and more infos. Complete sentences please.
 
 import random
 import tkinter as tk
+import re
 
 __author__ = "123456: John Cleese, 654321: Terry Gilliam"  # put your data here
 __copyright__ = "Copyright 2017/2018 - EPR-Goethe-Uni"
@@ -26,17 +27,20 @@ class PahTum():
         for i in range(7):
             for j in range(7):
                 count += 1
-
                 self.a = "l" + str(i + 1) + str(j + 1)
-
-
-                self.a = tk.Label(self.root, text=self.a, width=6, height=3, bg="light cyan", borderwidth=0.5)
-
+                self.a = tk.Label(self.root, text=self.a, width=6, height=3,
+                                  bg="light cyan", borderwidth=0.5)
                 self.a.bind("<Button-1>", self.color_change)
                 self.a.grid(row=i, column=j)
+
         self.tic_label = tk.Label(self.root, text="Tic: ", width=6, height=3,
                                   bg="plum2", borderwidth=1, relief="solid")
-        self.tic_label.grid(row=1, column=8)
+        self.tic_label.grid(row=0, column=8)
+
+        self.score_label = tk.Label(self.root, text="Score: ", width=6, height=3,
+                                    bg="palegreen", borderwidth=1, relief="solid")
+        self.score_label.grid(row=1, column=8)
+
         print(self.root.grid_slaves())
         self.root.mainloop
 
@@ -79,6 +83,8 @@ class PahTum():
                 self.tic_label.config(text=tic_str)
                 self.inc_tic(self.tic)
                 print(self.tiles_dict)
+
+        self.get_score()
 
     def autism(self):
         """Autism - to be renamed
@@ -153,3 +159,69 @@ class PahTum():
     def coord_to_tile_number(self, coord):
         tile_number = str(int(coord[0]) * 7 + int(coord[1]) + 1)
         return tile_number
+
+    def get_score_column(self):
+        column_score = 0
+        for j in range(7):
+            possible_score = ""
+            for i in range(7):
+                key = str(i) + str(j)
+
+                if (self.tiles_dict[key] == ""):
+                    possible_score += "_"
+                elif (self.tiles_dict[key] == "blocked"):
+                    possible_score += "blocked"
+                elif (self.tiles_dict[key] == "player1"):
+                    possible_score += self.tiles_dict[key]
+
+            if (possible_score.count("player1" * 7) != 0):
+                column_score += 119
+            elif (possible_score.count("player1" * 6) != 0):
+                column_score += 56
+            elif (possible_score.count("player1" * 5) != 0):
+                column_score += 25
+            elif (possible_score.count("player1" * 4) != 0):
+                column_score += 10
+            elif (possible_score.count("player1" * 3) != 0):
+                column_score += 3 * possible_score.count("player1" * 3)
+
+            print("ColumnScore:", column_score)
+            # self.score_label.config(text=str(column_score))
+        return(column_score)
+
+    def get_score_row(self):
+        row_score = 0
+        for i in range(7):
+            possible_score = ""
+            for j in range(7):
+                key = str(i) + str(j)
+
+                if (self.tiles_dict[key] == ""):
+                    possible_score += "_"
+                elif (self.tiles_dict[key] == "blocked"):
+                    possible_score += "blocked"
+                elif (self.tiles_dict[key] == "player1"):
+                    possible_score += self.tiles_dict[key]
+
+            if (possible_score.count("player1" * 7) != 0):
+                row_score += 119
+            elif (possible_score.count("player1" * 6) != 0):
+                row_score += 56
+            elif (possible_score.count("player1" * 5) != 0):
+                row_score += 25
+            elif (possible_score.count("player1" * 4) != 0):
+                row_score += 10
+            elif (possible_score.count("player1" * 3) != 0):
+                row_score += 3 * possible_score.count("player1" * 3)
+
+            print("___RowScore:", row_score)
+            # self.score_label.config(text=str(row_score))
+
+        return(row_score)
+
+    def get_score(self):
+        total_score = 0
+        row_score = self.get_score_row()
+        column_score = self.get_score_column()
+        total_score += row_score + column_score
+        self.score_label.config(text=str(total_score))
