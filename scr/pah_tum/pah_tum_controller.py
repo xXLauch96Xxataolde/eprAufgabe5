@@ -140,22 +140,41 @@ def undo_func(move_list, tic, tiles_dict):
         return move_list, tic, tiles_dict
 
 def field_printer(tiles_dict):
-    to_print = "\n   0   1   2   3   4   5   6  \n"
-    for i in range(0, 7):
-        to_print += str(i) + " "
-        for j in range(0, 7):
-            index = str(i) + str(j)
-            if str(tiles_dict[index]) == "":
-                to_draw = "[ ]"
-            elif str(tiles_dict[index]) == "blocked":
-                to_draw = '\033[1;47m[/]\033[1;m'
-            elif str(tiles_dict[index]) == "player1":
-                to_draw = '\033[1;31m[X]\033[1;m'
-            elif str(tiles_dict[index]) == "player2":
-                to_draw = '\033[1;32m[O]\033[1;m'
-            to_print += to_draw + " "
+    if os.name == "nt":
+        to_print = "\n   0   1   2   3   4   5   6  \n"
+        for i in range(0, 7):
+            to_print += str(i) + " "
+            for j in range(0, 7):
+                index = str(i) + str(j)
+                if str(tiles_dict[index]) == "":
+                    to_draw = "[ ]"
+                elif str(tiles_dict[index]) == "blocked":
+                    to_draw = '[/]'
+                elif str(tiles_dict[index]) == "player1":
+                    to_draw = '[X]'
+                elif str(tiles_dict[index]) == "player2":
+                    to_draw = '[O]'
+                to_print += to_draw + " "
 
-        to_print += "\n \n"
+            to_print += "\n \n"
+
+    else:
+        to_print = "\n   0   1   2   3   4   5   6  \n"
+        for i in range(0, 7):
+            to_print += str(i) + " "
+            for j in range(0, 7):
+                index = str(i) + str(j)
+                if str(tiles_dict[index]) == "":
+                    to_draw = "[ ]"
+                elif str(tiles_dict[index]) == "blocked":
+                    to_draw = '\033[1;47m[I]\033[1;m'
+                elif str(tiles_dict[index]) == "player1":
+                    to_draw = '\033[1;31m[X]\033[1;m'
+                elif str(tiles_dict[index]) == "player2":
+                    to_draw = '\033[1;32m[O]\033[1;m'
+                to_print += to_draw + " "
+
+            to_print += "\n \n"
 
     print(to_print)
 
