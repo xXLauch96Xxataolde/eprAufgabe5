@@ -31,15 +31,15 @@ def menue():
 
 def main():
     # delete at end of construction work
-    root = tk.Tk()
-    obj = PahTum(root)
-    root.mainloop()
+    #root = tk.Tk()
+    #obj = PahTum(root)
+    #root.mainloop()
     # delete part above - Wear your hard hat
     while(True):
         menue()
         inp = input()
         if (inp == "2"):
-            controller.controller()
+            pah_tum_controller.controller()
         if (inp == "3"):
             root = tk.Tk()
             obj = PahTum(root)
