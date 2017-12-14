@@ -1,0 +1,35 @@
+Welcome to Pah Tum,
+
+Pah Tum is one of the oldest games known to mankind. It was first played Mesopotamia and Assyria and dates back to 1780 b.c. It is a strategic board game designed for two players. Goal of the game is to gain more points than your opponent, by strategically positioning your stones on the field.
+
+The game is played on a 7x7 board. At the beginning of a game a number between 5 and 13, which is uneven, is chosen. This is the number of random tiles, which will be blocked. No stone can be put on these tiles.
+
+The person who shall begin is randomly chosen and gets to put his stone on any tile, which is not blocked. Then it’s the turn of the second player, who can put his stone on the field.
+
+The game is over if there is no more empty field left. The player who has the greatest number of points wins. Points are given for putting three or more stones in a row (either vertically or horizontally). The number of points given is defined by the length of the row. For three stones 3 points are awarded, for four points 10 points are awarded, for five 25, for six 56 and for seven stones in a row you get 119 points. If both players have the same amount of points, the game is drawn and should be played again ;)
+
+
+To play our version of Pah Tum, simply chose your game mode you want to play in from the menu. The menu starts automatically once python main.py is called from any console.
+If you want to play Pah Tum in your console, enter „1“ in the menu and press <enter>. This will lead you to the TUI version of the game.
+
+TUI Version:
+If you have selected this version, you will first have to enter an uneven number between 5 and 13. This is the number of tiles that will randomly be blocked at the beginning of the match.
+Player 1 then commences with entering a tile coordinate, on which he wants to lay his stone, in the console and pressing <enter>.
+The coordinates for the stones are the first number corresponding with the number of the row, as shown to the left of the field and the second number corresponds to the column number shown above the field. These number should both be entered without any other characters and without a blank (is possible but just don’t do it).
+When a tile is chosen, which is either blocked or already taken, a helpful text is displayed and you get to input again.
+Your score is printed beneath the field and once you have a row with three or more fields, the row is highlighted.
+Once the game is over, a message appears and you are reassigned to the menu.
+During the entire game you can easily undo your last step by typing „undo“ and pressing <enter>.
+Further more you can also type „exit“, „menu“ or „restart“ to exit the game, switch to menu or restart the game.
+
+GUI Version:
+This version works similar to the text-based user interface, it’s just a little bit more user friendly. Once the GUI-game mode is selected, a window opens on your screen. Here you will see a dropdown button from which you can choose the number of blocked tiles for your game and wether you want to play vs. a player or the computer.
+Once your options are confirmed a new window opens and the board is displayed. The blocked tiles are blacked out.
+
+Your user interface is made up of your board, which fills up most of the window, and your options on the right. The first box on the right shows the current tic, beneath this you can see the current scores for player 1 and beneath that the equivalent for player 2.
+Underneath the score of player 2 we placed the undo-button. By pressing this button you can undo the last step or turn that has been made. You can go back all the way to the beginning of the game.
+Last but not least we have three more buttons you can press. The first one opens the help file from (that is probably where you are at the moment), where you can get important information.
+The second button labeled with „restart“ lets you restart the game and the last button „exit“ closes the entire game.
+
+To place a stone on the field simply make sure, that it is your turn and click on the specific tile you want to place your stone. Once clicked the color of the tile will change to your color (player1=green, player2 = red) and the next player gets to lay his stone.
+The rest of the game is similar to the TUI and shouldn’t cause any further problems.
