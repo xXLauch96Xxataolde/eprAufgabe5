@@ -169,7 +169,10 @@ def field_printer(tiles_dict):
                 elif str(tiles_dict[index]) == "blocked":
                     to_draw = '\033[1;47m[I]\033[1;m'
                 elif str(tiles_dict[index]) == "player1":
-                    to_draw = '\033[1;31m[X]\033[1;m'
+                    if str(tiles_dict[str(i) + str(j+1)]) or str(tiles_dict[str(i) + str(j-1)]):
+                        to_draw = '\033[1;41m[X]\033[1;m'
+                    else:
+                        to_draw = '\033[1;31m[X]\033[1;m'
                 elif str(tiles_dict[index]) == "player2":
                     to_draw = '\033[1;32m[O]\033[1;m'
                 to_print += to_draw + " "
@@ -194,7 +197,6 @@ def controller():
     field_printer(tiles_dict)
 
     while tic < 49 - blocked_numb:
-        print('\033[1;31mRed like Radish\033[1;m')
         print(tic)
         print(tiles_dict)
         if tic % 2 == 0:
