@@ -189,12 +189,13 @@ def controller():
     tic = 0
     move_list = []
     while True:
-        blocked_numb = input("How many blocked tiles do you want to play with?")
+        blocked_numb = input("How many blocked tiles do you want to play with? "
+                             "Choose an uneven number between 5 and 13.  ")
         if blocked_numb in ["5", "7", "9", "11", "13"]:
             blocked_numb = int(blocked_numb)
             break
         else:
-            print("You didn't enter a number.")
+            print("You didn't enter a valid input.")
     tiles_dict = tiles_dict_constructor(blocked_numb)
     field_printer(tiles_dict)
 
@@ -220,11 +221,16 @@ def controller():
             elif tile == "restart":
                 controller()
                 return
+            elif tile == "menu":
+                return
             try:
                 if tiles_dict[tile] == "":
                     move_list.append(tile)
                     break
                 else:
+                    print("You didn't enter a valid input. Either type in your tile-coordinate on"
+                          " which you want to put your stone or type 'menu', 'exit' or 'restart'."
+                          " For further information look at our help file.")
                     continue
             except KeyError:
                 continue
