@@ -20,10 +20,10 @@ def menue():
     
     print("...Welcome to the Menue................")
     print(".......................................")
-    print("...Press 1 to start Pah Tum............")
+    print("...Press 1 to start Pah Tum TUI Mode...")
     print("...Press 2 to start Pah Tum GUI Mode...")
-    print("...Press 3 to Start Pah Tum Class Mode.")
-    print(".......................................")
+    print("...Press 3 to see the manual...........")
+    print("...Press 4 for help....................")
     print("...Press 5 to Exit.....................")
     print(".......................................")
     print(".......................................")
@@ -38,9 +38,9 @@ def main():
     while(True):
         menue()
         inp = input()
-        if (inp == "2"):
+        if (inp == "1"):
             pah_tum_controller.controller()
-        if (inp == "3"):
+        if (inp == "2"):
             root = tk.Tk()
             obj = PahTum(root)
             root.mainloop()

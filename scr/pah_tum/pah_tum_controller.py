@@ -6,6 +6,7 @@ Additional information if required and more infos. Complete sentences please.
 import random
 import tkinter as tk
 import os
+import sys
 
 __author__ = "123456: John Cleese, 654321: Terry Gilliam"  # put your data here
 __copyright__ = "Copyright 2017/2018 - EPR-Goethe-Uni"
@@ -139,6 +140,7 @@ def undo_func(move_list, tic, tiles_dict):
 
         return move_list, tic, tiles_dict
 
+
 def field_printer(tiles_dict):
     if os.name == "nt":
         to_print = "\n   0   1   2   3   4   5   6  \n"
@@ -169,7 +171,7 @@ def field_printer(tiles_dict):
                 elif str(tiles_dict[index]) == "blocked":
                     to_draw = '\033[1;47m[I]\033[1;m'
                 elif str(tiles_dict[index]) == "player1":
-                    if str(tiles_dict[str(i) + str(j+1)]) or str(tiles_dict[str(i) + str(j-1)]):
+                    if str(tiles_dict[str(i) + str(j + 1)]) or str(tiles_dict[str(i) + str(j - 1)]):
                         to_draw = '\033[1;41m[X]\033[1;m'
                     else:
                         to_draw = '\033[1;31m[X]\033[1;m'
@@ -183,7 +185,7 @@ def field_printer(tiles_dict):
 
 
 def controller():
-    os.system('cls')
+    os.system('clear')
     tic = 0
     move_list = []
     while True:
@@ -212,6 +214,12 @@ def controller():
                 move_list, tic, tiles_dict = undo_func(move_list, tic, tiles_dict)
                 print(tic, move_list, tiles_dict)
                 break
+            elif tile == "exit":
+                print("Okay, bye.")
+                sys.exit()
+            elif tile == "restart":
+                controller()
+                return
             try:
                 if tiles_dict[tile] == "":
                     move_list.append(tile)
@@ -226,7 +234,7 @@ def controller():
 
             elif tic % 2 == 1:
                 tiles_dict[tile] = "player2"
-
+        os.system('clear')
         field_printer(tiles_dict)
 
         p1_column = get_score_column("player1", tiles_dict)
@@ -238,8 +246,6 @@ def controller():
         p2_row = get_score_row("player2", tiles_dict)
 
         print("Score of Player 2 =", p2_column + p2_row)
-
-        os.system('cls')
 
         tic += 1
 

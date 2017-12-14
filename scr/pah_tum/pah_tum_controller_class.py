@@ -6,6 +6,7 @@ Additional information if required and more infos. Complete sentences please.
 import random
 import tkinter as tk
 from tkinter import PhotoImage
+import sys
 
 __author__ = "123456: John Cleese, 654321: Terry Gilliam"  # put your data here
 __copyright__ = "Copyright 2017/2018 - EPR-Goethe-Uni"
@@ -65,6 +66,11 @@ class PahTum():
                                    bg="mediumpurple2", borderwidth=1, relief="solid")
         self.undo_label.grid(row=3, column=8)
         self.undo_label.bind("<Button-1>", self.undo_func)  # Undo Button constructed
+
+        self.exit_label = tk.Label(self.root, text="Exit", width=6, height=3,
+                                   bg="grey", borderwidth=1, relief="solid")
+        self.exit_label.grid(row=4, column=8)
+        self.exit_label.bind("<Button-1>", self.exit)  # Exit Button constructed
 
         print(self.root.grid_slaves())
         self.root.mainloop
@@ -200,9 +206,14 @@ class PahTum():
         # print(slaves_list)
 
         for i in range(tiles_number_to_block):
-            n_random = random.randint(0, 6)
-            m_random = random.randint(0, 6)
-            key = str(n_random) + str(m_random)
+            while True:
+                n_random = random.randint(0, 6)
+                m_random = random.randint(0, 6)
+                key = str(n_random) + str(m_random)
+                if self.tiles_dict[key] == "":
+                    break
+                else:
+                    continue
             self.tiles_dict[key] = "blocked"
 
             key = self.coord_to_tile_number(key)
@@ -289,3 +300,9 @@ class PahTum():
         self.label1.pack()
         self.toplevel.attributes("-topmost", True)  # put the root to foreground
         self.toplevel.geometry('+920+70')
+
+    def exit(self, event):
+        sys.exit()
+
+    def __del__(self):
+        print("Instance deleted.")
