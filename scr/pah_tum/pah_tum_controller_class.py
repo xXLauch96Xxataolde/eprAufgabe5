@@ -5,7 +5,9 @@ Additional information if required and more infos. Complete sentences please.
 
 import random
 import tkinter as tk
+from tkinter import ttk
 from tkinter import PhotoImage
+from tkinter import messagebox
 import sys
 
 __author__ = "123456: John Cleese, 654321: Terry Gilliam"  # put your data here
@@ -24,15 +26,18 @@ class PahTum():
         self.tic = tic
         self.root.attributes("-topmost", True)  # put the root to foreground
         self.root.geometry('+900+50')  # sets the default window position
-        self.root.title("Pah Tuuuum, Niels ist duuuum")
+        self.root.title("Pah Tum")
 
         self.wait = tk.Toplevel()
         self.wait.attributes("-topmost", True)
         self.wait.geometry('+900+50')  # sets the default window position to do: Wdht and height
-        self.label_1 = tk.Label(self.wait, text="Please selected number of blocked tiles...")
+        prompt_string = '{:^80}'.format("Please selected number of blocked tiles")
+        self.label_1 = tk.Label(self.wait, text=prompt_string)
         self.blocked_numb = tk.StringVar(self.wait)
         self.blocked_numb.set("Select number")  # initial value
-        self.blocked_tiles = tk.OptionMenu(self.wait, self.blocked_numb, "5", "7", "9", "11", "13")
+        self.blocked_tiles = ttk.OptionMenu(
+            self.wait, self.blocked_numb, "5", "7", "9", "11", "13")
+        self.msg_box = 0
         self.click = tk.Button(self.wait, text="OK", command=self.enter_configs)
         self.label_1.pack()
         self.blocked_tiles.pack()
@@ -67,9 +72,14 @@ class PahTum():
         self.undo_label.grid(row=3, column=8)
         self.undo_label.bind("<Button-1>", self.undo_func)  # Undo Button constructed
 
+        self.ai_label = tk.Label(self.root, text="P v AI", width=6, height=3,
+                                 bg="firebrick", borderwidth=1, cursor="gumby")
+        self.ai_label.grid(row=5, column=8)
+        self.ai_label.bind("<Button-1>", self.ai_controller)  # Ai Mode Button constructed
+
         self.exit_label = tk.Label(self.root, text="Exit", width=6, height=3,
                                    bg="grey", borderwidth=1, relief="solid")
-        self.exit_label.grid(row=4, column=8)
+        self.exit_label.grid(row=6, column=8)
         self.exit_label.bind("<Button-1>", self.exit)  # Exit Button constructed
 
         print(self.root.grid_slaves())
@@ -87,7 +97,6 @@ class PahTum():
             self.tiles_blocker()
             self.wait.destroy()
             self.root.deiconify()
-
 
     def undo_func(self, event):
         if len(self.move_list) != 0:
@@ -113,7 +122,7 @@ class PahTum():
 
     def color_change(self, event):
 
-        if (self.tic < 49):
+        if (self.tic < 3):
             print("something", event.widget)
 
             print("Tic", self.tic)
@@ -144,8 +153,8 @@ class PahTum():
 
             self.get_score()
         else:
-            print("GAME OVER GAME OVER")
-            # something with a prompt box
+            winner_string = " "
+            messagebox.showinfo("WINNER", winner_string)
 
     def autism(self):
         """Autism - to be renamed
@@ -303,6 +312,26 @@ class PahTum():
 
     def exit(self, event):
         sys.exit()
+
+    def random_start(self):
+        temp_rand_var = random.randint(0, 1)
+        if (temp_rand_var == 0):
+            messagebox.showinfo("Player initialization", "Random chose Player 1 to start")
+        elif (temp_rand_var == 1):
+            messagebox.showinfo("Player initialization", "Random chose the Computer to start")
+        return(temp_rand_var)
+
+    def ai_controller(self, event):
+        temp_rand_var = self.random_start()
+        slaves_list = []
+        slaves_list.extend(self.root.grid_slaves())
+        slaves_list.reverse()
+        slaves_list = slaves_list[0: 49]
+        print(slaves_list)
+        if (self.tic < 49):
+            #if (temp_rand_var == 0 and self.tic % 2 == 0):
+            #if (event.widget in slaves_list):
+            print("PEEEEEEEEEEEEEEEEEEEEEEEEENIS", event.widget)
 
     def __del__(self):
         print("Instance deleted.")
