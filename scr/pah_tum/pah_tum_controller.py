@@ -1,6 +1,6 @@
-"""Docstring: A very short sentence explaining the function. < 79 characters.
+"""TUI Game-mode Controller:
 
-Additional information if required and more infos. Complete sentences please.
+This module is in charge of letting players play in the TUI mode.
 """
 
 import random
@@ -8,14 +8,19 @@ import tkinter as tk
 import os
 import sys
 
-__author__ = "123456: John Cleese, 654321: Terry Gilliam"  # put your data here
+__author__ = "6785468: Robert am Wege, 6770541: Niels Heissel"
 __copyright__ = "Copyright 2017/2018 - EPR-Goethe-Uni"
-__credits__ = "If you would like to thank somebody \
-              i.e. an other student for her code or leave it out"
-__email__ = "your email address"
+__credits__ = ""
+__email__ = "uni.goethe.horde@gmail.com"
 
 
 def get_score_column(player, tiles_dict):
+    """Check score in columns.
+
+    Checks if there are three or more stones from the same player in a row in a column.
+    Assign the predefined points for the length of the row.
+    player -- either 'player1' or 'player2' depending on which score is to check.
+    """
     column_score = 0
     for j in range(7):
         possible_score = ""
@@ -42,6 +47,12 @@ def get_score_column(player, tiles_dict):
 
 
 def get_score_row(player, tiles_dict):
+    """Check score in rows.
+
+    Checks if there are three or more stones from the same player in a row in a field-row.
+    Assign the predefined points for the length of the row.
+    player -- either 'player1' or 'player2' depending on which score is to check.
+    """
     row_score = 0
     for i in range(7):
         possible_score = ""
@@ -88,6 +99,7 @@ def autism():
 
 
 def tiles_dict_constructor(blocked_numb):
+    """Constructs the tiles dictionary and blocks random fields."""
     tiles_dict = {}
     for i in range(7):
         for j in range(7):
@@ -110,6 +122,7 @@ def tiles_dict_constructor(blocked_numb):
 
 
 def undo_func(move_list, tic, tiles_dict):
+    """Undo-function lets you undo the last step, which is saved in a list."""
     if len(move_list) != 0:
         key = move_list[-1]
         tiles_dict[key] = ""
@@ -120,6 +133,8 @@ def undo_func(move_list, tic, tiles_dict):
 
 
 def check_for_row(tiles_dict, index):
+    """This function checks if there is a row that gives points, to color."""
+    # check rows
     try:
         if str(tiles_dict[str(index)]) == str(tiles_dict[index[0] + str(int(index[1]) + 1)]) == str(
                 tiles_dict[index[0] + str(int(index[1]) + 2)]):
@@ -141,6 +156,7 @@ def check_for_row(tiles_dict, index):
     except KeyError:
         None
 
+    # check columns
     try:
         if str(tiles_dict[str(index)]) == str(tiles_dict[str(int(index[0]) + 1) + index[1]]) == str(
                 tiles_dict[str(int(index[0]) + 2) + index[1]]):
@@ -164,6 +180,8 @@ def check_for_row(tiles_dict, index):
 
 
 def field_printer(tiles_dict):
+    """This procedure gets the current state of the field and prints it."""
+    # for Windows-user
     if os.name == "nt":
         to_print = "\n   0   1   2   3   4   5   6  \n"
         for i in range(0, 7):
@@ -182,6 +200,7 @@ def field_printer(tiles_dict):
 
             to_print += "\n \n"
 
+    # for OS X and Linux
     else:
         to_print = "\n   0   1   2   3   4   5   6  \n"
         for i in range(0, 7):
@@ -210,9 +229,18 @@ def field_printer(tiles_dict):
 
 
 def controller():
+    """The main controller of the TUI game.
+
+    This controller is the heart of the TUI game, being in charge of coordinating all procedures
+    and function, that are needed for a good game-flow.
+    The game is active when we are in the second while-loop. The first one takes the input for
+    the number of blocked tiles.
+    """
+
+    # only for OS X and Linux
     os.system('clear')
     tic = 0
-    move_list = []
+    move_list = []  # list of the last moves, later needed for undo-func.
     while True:
         blocked_numb = input("How many blocked tiles do you want to play with? "
                              "Choose an uneven number between 5 and 13.  ")
@@ -259,26 +287,28 @@ def controller():
                     continue
             except KeyError:
                 continue
+
         if tile.isdigit():
             if tic % 2 == 0:
                 tiles_dict[tile] = "player1"
 
             elif tic % 2 == 1:
                 tiles_dict[tile] = "player2"
+
         os.system('clear')
         field_printer(tiles_dict)
 
+        # gets and prints the score for player 1 and player 2
         p1_column = get_score_column("player1", tiles_dict)
         p1_row = get_score_row("player1", tiles_dict)
-
         print("Score of Player 1 =", p1_column + p1_row)
-
         p2_column = get_score_column("player2", tiles_dict)
         p2_row = get_score_row("player2", tiles_dict)
-
         print("Score of Player 2 =", p2_column + p2_row)
 
         tic += 1
+
+        # turn over. next players turn.
 
     print("\n Well played guys! \nGame is over")
 

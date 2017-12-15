@@ -10,11 +10,10 @@ from tkinter import PhotoImage
 from tkinter import messagebox
 import sys
 
-__author__ = "123456: John Cleese, 654321: Terry Gilliam"  # put your data here
+__author__ = "6785468: Robert am Wege, 6770541: Niels Heissel"
 __copyright__ = "Copyright 2017/2018 - EPR-Goethe-Uni"
-__credits__ = "If you would like to thank somebody \
-              i.e. an other student for her code or leave it out"
-__email__ = "your email address"
+__credits__ = ""
+__email__ = "uni.goethe.horde@gmail.com"
 
 
 class PahTum():
