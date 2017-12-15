@@ -237,8 +237,8 @@ def controller():
     the number of blocked tiles.
     """
 
-    # only for OS X and Linux
-    os.system('clear')
+    if os.name != "nt":  # only for OS X and Linux
+        os.system('clear')
     tic = 0
     move_list = []  # list of the last moves, later needed for undo-func.
     while True:
@@ -295,7 +295,8 @@ def controller():
             elif tic % 2 == 1:
                 tiles_dict[tile] = "player2"
 
-        os.system('clear')
+        if os.name != "nt":
+            os.system('clear')
         field_printer(tiles_dict)
 
         # gets and prints the score for player 1 and player 2
