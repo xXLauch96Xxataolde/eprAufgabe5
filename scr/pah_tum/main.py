@@ -6,7 +6,8 @@ Additional information if required and more infos. Complete sentences please.
 import random
 import pah_tum_controller
 import sys
-from pah_tum_controller_class import PahTum
+#from pah_tum_controller_class import PahTum
+from pah_tum_controller_class2 import PahTum
 import tkinter as tk
 
 __author__ = "123456: John Cleese, 654321: Terry Gilliam"  # put your data here
@@ -31,9 +32,9 @@ def menue():
 
 def main():
     # delete at end of construction work
-    #root = tk.Tk()
-    #obj = PahTum(root)
-    #root.mainloop()
+    root = tk.Tk()
+    obj = PahTum(root)
+    root.mainloop()
     # delete part above - Wear your hard hat
     while(True):
         menue()
