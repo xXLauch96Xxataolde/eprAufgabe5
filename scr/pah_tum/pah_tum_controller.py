@@ -15,10 +15,6 @@ __credits__ = "If you would like to thank somebody \
 __email__ = "your email address"
 
 
-def read_tic(tic):
-    return tic
-
-
 def get_score_column(player, tiles_dict):
     column_score = 0
     for j in range(7):
@@ -71,16 +67,6 @@ def get_score_row(player, tiles_dict):
     return row_score
 
 
-def inc_tic():
-    a = read_tic()
-    return (a + 1)
-
-
-def color_change(event):
-    print("something", event.widget)
-    event.widget.config(bg="lightgreen")
-
-
 def autism():
     """Autism - to be renamed
 
@@ -120,15 +106,7 @@ def tiles_dict_constructor(blocked_numb):
 
         tiles_dict[key] = "blocked"
 
-        print(key)
-
     return tiles_dict
-
-
-def convert_tile_to_coord(tile):
-    # here we convert char into numbers 'A2' => '02'
-    # maybe change your dict keys...
-    None
 
 
 def undo_func(move_list, tic, tiles_dict):
@@ -140,51 +118,49 @@ def undo_func(move_list, tic, tiles_dict):
 
         return move_list, tic, tiles_dict
 
+
 def check_for_row(tiles_dict, index):
-    print(index, index[1]+ str(int(index[1]) + 1), index[1]+ str(int(index[1]) + 2))
     try:
-        if str(tiles_dict[str(index)]) == str(tiles_dict[index[0]+ str(int(index[1]) + 1)]) == str(tiles_dict[index[0]+ str(int(index[1]) + 2)]):
-            print("row 1")
+        if str(tiles_dict[str(index)]) == str(tiles_dict[index[0] + str(int(index[1]) + 1)]) == str(
+                tiles_dict[index[0] + str(int(index[1]) + 2)]):
             return True
     except KeyError:
-        print("not in row 1")
+        None
 
     try:
-        if str(tiles_dict[str(index)]) == str(tiles_dict[index[0]+ str(int(index[1]) + 1)]) == str(tiles_dict[index[0]+ str(int(index[1]) - 1)]):
-            print("row 2")
+        if str(tiles_dict[str(index)]) == str(tiles_dict[index[0] + str(int(index[1]) + 1)]) == str(
+                tiles_dict[index[0] + str(int(index[1]) - 1)]):
             return True
     except KeyError:
-        print("not in row 2")
+        None
 
     try:
-        if str(tiles_dict[str(index)]) == str(tiles_dict[index[0]+ str(int(index[1]) - 1)]) == str(tiles_dict[index[0]+ str(int(index[1]) - 2)]):
-            print("row 3")
+        if str(tiles_dict[str(index)]) == str(tiles_dict[index[0] + str(int(index[1]) - 1)]) == str(
+                tiles_dict[index[0] + str(int(index[1]) - 2)]):
             return True
     except KeyError:
-        print("not in row 3")
+        None
 
     try:
-        if str(tiles_dict[str(index)]) == str(tiles_dict[str(int(index[0]) + 1) + index[1]]) == str(tiles_dict[str(int(index[0]) + 2) + index[1]]):
-            print("row 1")
+        if str(tiles_dict[str(index)]) == str(tiles_dict[str(int(index[0]) + 1) + index[1]]) == str(
+                tiles_dict[str(int(index[0]) + 2) + index[1]]):
             return True
     except KeyError:
-        print("not in row 1")
+        None
 
     try:
-        if str(tiles_dict[str(index)]) == str(tiles_dict[str(int(index[0]) - 1) + index[1]]) == str(tiles_dict[str(int(index[0]) + 1) + index[1]]):
-            print("row 2")
+        if str(tiles_dict[str(index)]) == str(tiles_dict[str(int(index[0]) - 1) + index[1]]) == str(
+                tiles_dict[str(int(index[0]) + 1) + index[1]]):
             return True
     except KeyError:
-        print("not in row 2")
+        None
 
     try:
-        if str(tiles_dict[str(index)]) == str(tiles_dict[str(int(index[0]) - 1) + index[1]]) == str(tiles_dict[str(int(index[0]) - 2) + index[1]]):
-            print("row 3")
+        if str(tiles_dict[str(index)]) == str(tiles_dict[str(int(index[0]) - 1) + index[1]]) == str(
+                tiles_dict[str(int(index[0]) - 2) + index[1]]):
             return True
     except KeyError:
-        print("not in row 3")
-
-
+        None
 
 
 def field_printer(tiles_dict):
@@ -249,8 +225,6 @@ def controller():
     field_printer(tiles_dict)
 
     while tic < 49 - blocked_numb:
-        print(tic)
-        print(tiles_dict)
         if tic % 2 == 0:
             print("Player 1 it's your turn.")
         elif tic % 2 == 1:
@@ -260,7 +234,7 @@ def controller():
             tile = input("Please type your Field you want to assign to your stone.")
             tile = tile.replace(" ", "")
             if tile == "undo":
-                print("undo")
+                print("Undoing last step...")
                 move_list, tic, tiles_dict = undo_func(move_list, tic, tiles_dict)
                 print(tic, move_list, tiles_dict)
                 break
@@ -268,6 +242,7 @@ def controller():
                 print("Okay, bye.")
                 sys.exit()
             elif tile == "restart":
+                print("Restarting Game")
                 controller()
                 return
             elif tile == "menu":
@@ -277,9 +252,9 @@ def controller():
                     move_list.append(tile)
                     break
                 else:
-                    print("You didn't enter a valid input. Either type in your tile-coordinate on"
+                    print("\nYou didn't enter a valid input. Either type in your tile-coordinate on"
                           " which you want to put your stone or type 'menu', 'exit' or 'restart'."
-                          " For further information look at our help file.")
+                          " For further information look at our help file in the menu.")
                     continue
             except KeyError:
                 continue
