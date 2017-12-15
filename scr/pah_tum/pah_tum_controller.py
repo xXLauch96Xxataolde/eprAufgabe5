@@ -140,6 +140,52 @@ def undo_func(move_list, tic, tiles_dict):
 
         return move_list, tic, tiles_dict
 
+def check_for_row(tiles_dict, index):
+    print(index, index[1]+ str(int(index[1]) + 1), index[1]+ str(int(index[1]) + 2))
+    try:
+        if str(tiles_dict[str(index)]) == str(tiles_dict[index[0]+ str(int(index[1]) + 1)]) == str(tiles_dict[index[0]+ str(int(index[1]) + 2)]):
+            print("row 1")
+            return True
+    except KeyError:
+        print("not in row 1")
+
+    try:
+        if str(tiles_dict[str(index)]) == str(tiles_dict[index[0]+ str(int(index[1]) + 1)]) == str(tiles_dict[index[0]+ str(int(index[1]) - 1)]):
+            print("row 2")
+            return True
+    except KeyError:
+        print("not in row 2")
+
+    try:
+        if str(tiles_dict[str(index)]) == str(tiles_dict[index[0]+ str(int(index[1]) - 1)]) == str(tiles_dict[index[0]+ str(int(index[1]) - 2)]):
+            print("row 3")
+            return True
+    except KeyError:
+        print("not in row 3")
+
+    try:
+        if str(tiles_dict[str(index)]) == str(tiles_dict[str(int(index[0]) + 1) + index[1]]) == str(tiles_dict[str(int(index[0]) + 2) + index[1]]):
+            print("row 1")
+            return True
+    except KeyError:
+        print("not in row 1")
+
+    try:
+        if str(tiles_dict[str(index)]) == str(tiles_dict[str(int(index[0]) - 1) + index[1]]) == str(tiles_dict[str(int(index[0]) + 1) + index[1]]):
+            print("row 2")
+            return True
+    except KeyError:
+        print("not in row 2")
+
+    try:
+        if str(tiles_dict[str(index)]) == str(tiles_dict[str(int(index[0]) - 1) + index[1]]) == str(tiles_dict[str(int(index[0]) - 2) + index[1]]):
+            print("row 3")
+            return True
+    except KeyError:
+        print("not in row 3")
+
+
+
 
 def field_printer(tiles_dict):
     if os.name == "nt":
@@ -171,12 +217,15 @@ def field_printer(tiles_dict):
                 elif str(tiles_dict[index]) == "blocked":
                     to_draw = '\033[1;47m[I]\033[1;m'
                 elif str(tiles_dict[index]) == "player1":
-                    if str(tiles_dict[str(i) + str(j + 1)]) or str(tiles_dict[str(i) + str(j - 1)]):
+                    if check_for_row(tiles_dict, index) is True:
                         to_draw = '\033[1;41m[X]\033[1;m'
                     else:
                         to_draw = '\033[1;31m[X]\033[1;m'
                 elif str(tiles_dict[index]) == "player2":
-                    to_draw = '\033[1;32m[O]\033[1;m'
+                    if check_for_row(tiles_dict, index) is True:
+                        to_draw = '\033[1;42m[O]\033[1;m'
+                    else:
+                        to_draw = '\033[1;32m[O]\033[1;m'
                 to_print += to_draw + " "
 
             to_print += "\n \n"
