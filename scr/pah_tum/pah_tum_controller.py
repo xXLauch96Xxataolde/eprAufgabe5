@@ -252,9 +252,10 @@ def controller():
                     move_list.append(tile)
                     break
                 else:
-                    print("\nYou didn't enter a valid input. Either type in your tile-coordinate on"
-                          " which you want to put your stone or type 'menu', 'exit' or 'restart'."
-                          " For further information look at our help file in the menu.")
+                    print("\nYou didn't enter a valid input. Either type in your tile-coordinate"
+                          " (like '14') on which you want to put your stone or type 'menu', "
+                          "'exit' or 'restart'. For further information look at our help file in "
+                          "the menu. FYI your tile should be empty ;)")
                     continue
             except KeyError:
                 continue
