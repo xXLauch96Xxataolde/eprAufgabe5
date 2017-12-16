@@ -97,7 +97,7 @@ class PahTumAI():
         self.rand_start_assigner()  # generates the starting player for ai game mode
 
     def restart(self, event):
-        self.root.destroy()
+        "something with an exit code maybe"
         python = sys.executable
         os.execl(python, python, * sys.argv)
 
