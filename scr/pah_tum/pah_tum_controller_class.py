@@ -83,6 +83,11 @@ class PahTum():
         self.restart_label.grid(row=5, column=8)
         self.restart_label.bind("<Button-1>", self.restart)  # Restart Button constructed
 
+        self.ai_start_label = tk.Label(self.root, text="AI Game", width=6, height=3,
+                                   bg="firebrick", highlightthickness=1, highlightbackground= "grey")
+        self.ai_start_label.grid(row=4, column=8)
+        self.ai_start_label.bind("<Button-1>", self.ai_start)  # Exit Button constructed
+
         self.exit_label = tk.Label(self.root, text="Exit", width=6, height=3,
                                    bg="SteelBlue", highlightthickness=1, highlightbackground= "grey")
         self.exit_label.grid(row=6, column=8)
@@ -325,6 +330,11 @@ class PahTum():
         "something with an exit code maybe"
         python = sys.executable
         os.execl(python, python, * sys.argv)
+
+    def ai_start(self, event):
+        self.root.destroy()
+        root = tk.Tk()
+        obj = pah_tum_controller_class2.PahTumAI(root)
 
     def __del__(self):
         print("Instance deleted.")
