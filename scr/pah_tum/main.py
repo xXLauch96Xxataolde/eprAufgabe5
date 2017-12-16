@@ -1,6 +1,7 @@
-"""Docstring: A very short sentence explaining the function. < 79 characters. 
+"""The Main Function
 
-Additional information if required and more infos. Complete sentences please.
+This module is the start of our pah_tum program. It holds the menue, the help docs and 
+initializes the construction of the roots and class objects. 
 """
 
 import random

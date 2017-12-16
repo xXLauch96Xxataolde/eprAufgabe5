@@ -1,6 +1,6 @@
 """TUI Game-mode Controller:
 
-This module is in charge of letting players play in the TUI mode.
+This module is in charge of letting players play in the TUI mode. A basic feature of the exercise
 """
 
 import random

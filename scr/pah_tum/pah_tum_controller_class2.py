@@ -1,6 +1,7 @@
-"""Docstring: A very short sentence explaining the function. < 79 characters.
+"""Pah Tum Controller Class2
 
-Additional information if required and more infos. Complete sentences please.
+This class is dedicated to playing with a ai gui. As always we tried to be as descriptive
+as possible, so our commenting in docstrings is relatively shorter
 """
 
 import random
