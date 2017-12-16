@@ -26,10 +26,21 @@ def menue():
     print("...Press 2 to start Pah Tum GUI PvP Mode...")
     print("...Press 3 to start Pah Tum GUI AI Mode....")
     print("...Press 4 to see the manual...............")
-    print("...Press 5 for help........................")
-    print("...Press 6 to Exit.........................")
+    print("...Press 5 to exit.........................")
     print("...........................................")
     print("...........................................")
+
+
+def helpings_gui():
+    """A gui version of the help file"""
+    window = tk.Tk()
+    file = open("game-manual.txt")
+    data = file.read()
+    file.close()
+    results = tk.Label(window, text=data)
+    results.grid(row=1, column=1)
+    window.attributes("-topmost", True)
+    window.mainloop()
 
 
 def helpings():
@@ -46,28 +57,33 @@ def helpings():
 
 
 def main():
-    inp = ""
+
     while(True):
         menue()
+        inp = ""
         inp = input()
         if (inp == "1"):
             pah_tum_controller.controller()
+            inp = ""
         elif (inp == "2"):
             root = tk.Tk()
             obj = PahTum(root)
             root.mainloop()
+            inp = ""
         elif (inp == "3"):
             root = tk.Tk()
             obj = PahTumAI(root)
             root.mainloop()
+            inp = ""
         elif (inp == "4"):
             helpings()
+            helpings_gui()
+            inp = ""
         elif (inp == "5"):
-            print("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEELP")
-        elif (inp == "6"):
             sys.exit()
         else:
-            print("Wrong Input. Choose a number between 1 and 6, please\n")
+            print("Wrong Input. Choose a number between 1 and 5, please\n")
+
 
 if __name__ == '__main__':
     main()

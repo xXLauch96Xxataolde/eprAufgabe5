@@ -57,39 +57,46 @@ class PahTum():
                 count += 1
                 self.a = "l" + str(i + 1) + str(j + 1)
                 self.a = tk.Label(self.root, width=6, height=3,
-                                  bg="light cyan", highlightthickness=1, highlightbackground= "grey")
+                                  bg="light cyan", highlightthickness=1,
+                                  highlightbackground="grey")
                 self.a.bind("<Button-1>", self.color_change)
                 self.a.grid(row=i, column=j)
 
         self.tic_label = tk.Label(self.root, text="Tic: ", width=6, height=3,
-                                  bg="plum2", highlightthickness=1, highlightbackground= "grey")
+                                  bg="seashell", highlightthickness=1, highlightbackground="grey")
         self.tic_label.grid(row=0, column=8)
 
         self.score_label_1 = tk.Label(self.root, text="Score: ", width=6, height=3,
-                                      bg="palegreen", highlightthickness=1, highlightbackground= "grey")
+                                      bg="palegreen", highlightthickness=1,
+                                      highlightbackground="grey")
         self.score_label_1.grid(row=1, column=8)
 
         self.score_label_2 = tk.Label(self.root, text="Score: ", width=6, height=3,
-                                      bg="tomato", highlightthickness=1, highlightbackground= "grey")
+                                      bg="tomato", highlightthickness=1,
+                                      highlightbackground="grey")
         self.score_label_2.grid(row=2, column=8)
 
         self.undo_label = tk.Label(self.root, text="Undo", width=6, height=3,
-                                   bg="mediumpurple2", highlightthickness=1, highlightbackground= "grey")
+                                   bg="thistle1", highlightthickness=1,
+                                   highlightbackground="grey")
         self.undo_label.grid(row=3, column=8)
         self.undo_label.bind("<Button-1>", self.undo_func)  # Undo Button constructed
 
         self.restart_label = tk.Label(self.root, text="Restart", width=6, height=3,
-                                      bg="bisque2", highlightthickness=1, highlightbackground= "grey")
+                                      bg="bisque2", highlightthickness=1,
+                                      highlightbackground="grey")
         self.restart_label.grid(row=5, column=8)
         self.restart_label.bind("<Button-1>", self.restart)  # Restart Button constructed
 
         self.ai_start_label = tk.Label(self.root, text="AI Game", width=6, height=3,
-                                   bg="firebrick", highlightthickness=1, highlightbackground= "grey")
+                                       bg="RosyBrown1", highlightthickness=1,
+                                       highlightbackground="grey")
         self.ai_start_label.grid(row=4, column=8)
         self.ai_start_label.bind("<Button-1>", self.ai_start)  # Exit Button constructed
 
         self.exit_label = tk.Label(self.root, text="Exit", width=6, height=3,
-                                   bg="SteelBlue", highlightthickness=1, highlightbackground= "grey")
+                                   bg="SteelBlue", highlightthickness=1,
+                                   highlightbackground="grey")
         self.exit_label.grid(row=6, column=8)
         self.exit_label.bind("<Button-1>", self.exit)  # Exit Button constructed
 
@@ -316,6 +323,7 @@ class PahTum():
         total_score_2 += row_score_2 + column_score_2
         self.score_label_2.config(text=str(total_score_2))
         return(total_score_1, total_score_2)
+
     def game_over(self):
         self.toplevel = tk.Toplevel()
         self.label1 = tk.Label(self.toplevel, text="Game Over", height=6, width=18)
@@ -328,8 +336,7 @@ class PahTum():
 
     def restart(self, event):
         "something with an exit code maybe"
-        python = sys.executable
-        os.execl(python, python, * sys.argv)
+        self.root.destroy()
 
     def ai_start(self, event):
         self.root.destroy()
