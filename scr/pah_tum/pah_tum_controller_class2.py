@@ -28,6 +28,11 @@ class PahTumAI():
     call_counter = 0  # to count the number of calls for ai_controller
 
     def __init__(self, root, tic=0):
+        """The Constructor
+
+        Called from the main, and handed over a tk root, which is the basis for the window.
+        In the constructor we bind every widget to its belonging root window
+        """
         self.root = root
         self.tic = tic
         self.root.attributes("-topmost", True)  # put the root to foreground
@@ -82,7 +87,7 @@ class PahTumAI():
         self.ai_label.bind("<Button-1>", self.ai_controller)  # Ai Mode Button constructed
 
         self.restart_label = tk.Label(self.root, text="Restart", width=6, height=3,
-                                   bg="grey", borderwidth=1)
+                                      bg="grey", borderwidth=1)
         self.restart_label.grid(row=5, column=8)
         self.restart_label.bind("<Button-1>", self.restart)  # Restart Button constructed
 
@@ -95,8 +100,6 @@ class PahTumAI():
 
         self.tiles_dict_constructor()
         self.rand_start_assigner()  # generates the starting player for ai game mode
-
-
 
     def restart(self, event):
         "something with an exit code maybe"
@@ -134,19 +137,22 @@ class PahTumAI():
                 self.ai_controller(event)
 
     def read_tic(self):
+        """returns the tic"""
         return self.tic
 
     def inc_tic(self, tic):
+        """increases the tic"""
         a = self.read_tic()
         self.tic = (a + 1)
 
     def color_change(self, event):
+
         if (self.call_counter == 0):
             showwarning("Start", "Please press Start on the right")
-        elif (self.tic < 49):
-            print("something", event.widget)
 
-            print("Tic", self.tic)
+        elif (self.tic < 49 - int(self.blocked_numb.get())):
+
+            # print("Tic", self.tic)
 
             self.label_coordinator(event.widget)
 
@@ -172,30 +178,32 @@ class PahTumAI():
 
             self.get_score()
         else:
-            winner_string = " "
-            messagebox.showinfo("WINNER", winner_string)
+            score1, score2 = self.get_score()
+            if (score1 > score2):
+                winner_string = "Congrats Player1, you are the Winner"
+                messagebox.showinfo("WINNER", winner_string)
+            elif (score1 < score2):
+                winner_string = "Congrats Player2, you are the Winner"
+                messagebox.showinfo("WINNER", winner_string)
+            else:
+                winner_string = "Congrats y0u are both Winners"
+                messagebox.showinfo("WINNER", winner_string)
 
         if (self.game_mode == 1):
             self.ai_controller(event)
-
-    def autism(self, event):
-
-        for i in range(4):
-            a = tk.Tk()
-            a.attributes("-topmost", True)
-            a.bell()
-            a.mainloop()
 
     def controller(self):
         print("Controller does nothing.")
 
     def tiles_dict_constructor(self):
+        """Puts every tile coordinate in a dict"""
         for i in range(7):
             for j in range(7):
                 a = str(i) + str(j)
                 self.tiles_dict[a] = ""
 
     def label_coordinator(self, label_widget):
+        """Allows to transform a coordinate into a tiles number"""
         if len(str(label_widget)) == 9:
             coordninates = str(label_widget)[-2:]
         elif len(str(label_widget)) == 8:
@@ -211,13 +219,15 @@ class PahTumAI():
         return str(dict_key1) + str(dict_key2)
 
     def on_enter(self, event):
+        """if a tile is blocked, tic label shows blocked"""
         self.tic_label.configure(text="Blocked")
 
     def on_leave(self, event):
+        """reverses the on_enter effect"""
         self.tic_label.configure(text="Tic: " + str(self.read_tic()))
 
     def tiles_blocker(self):
-
+        """blocks the tiles"""
         tiles_number_to_block = int(self.blocked_numb.get())
 
         slaves_list = []
@@ -243,6 +253,7 @@ class PahTumAI():
             slaves_list[int(key) - 1].bind("<Leave>", self.on_leave)
 
     def coord_to_tile_number(self, coord):
+        """translates a tile to a coordinate"""
         if (len(str(coord)) == 1):
             tile_number = str(0) + str(int(coord + 1))
             return tile_number
@@ -251,6 +262,7 @@ class PahTumAI():
             return tile_number
 
     def get_score_column(self, player):
+        """Function to add and return all possible column scores"""
         column_score = 0
         for j in range(7):
             possible_score = ""
@@ -276,6 +288,7 @@ class PahTumAI():
         return (column_score)
 
     def get_score_row(self, player):
+        """Function to add and return all possible row scores"""
         row_score = 0
         for i in range(7):
             possible_score = ""
@@ -301,6 +314,10 @@ class PahTumAI():
         return (row_score)
 
     def mod_get_score_row(self):
+        """Part of the ai
+
+        Functions to determine if a row offers a nice place for the ai to place its stone on
+        """
         for i in range(7):
             possible_score = ""
             for j in range(7):
@@ -399,6 +416,10 @@ class PahTumAI():
         return -1
 
     def mod_get_score_column(self):
+        """Part of the ai
+
+        Functions to determine if a column offers a nice place for the ai to place its stone on
+        """
         for j in range(7):
             possible_score = ""
             for i in range(7):
@@ -521,6 +542,11 @@ class PahTumAI():
         return -1
 
     def make_self_decision(self):
+        """Make self Decision
+
+        If a row or a column doesnt offer a nice tile to intercept any scoring ambitions, the ai 
+        chooses to go for some scoring points itself
+        """
         for i in range(7):
             possible_place = ""
             for j in range(7):
@@ -543,6 +569,7 @@ class PahTumAI():
                 continue
 
     def get_score(self):
+        """Combines row and column score and prints it to a score label"""
         total_score_1 = 0
         row_score_1 = self.get_score_row("A")
         column_score_1 = self.get_score_column("A")
@@ -555,7 +582,10 @@ class PahTumAI():
         total_score_2 += row_score_2 + column_score_2
         self.score_label_2.config(text=str(total_score_2))
 
+        return(total_score_1, total_score_2)
+
     def game_over(self):
+        """If tic reaches 49 minus blocked tiles, the game is over"""
         self.toplevel = tk.Toplevel()
         self.label1 = tk.Label(self.toplevel, text="Game Over", height=6, width=18)
         self.label1.pack()
@@ -563,19 +593,27 @@ class PahTumAI():
         self.toplevel.geometry('+920+70')
 
     def exit(self, event):
+        """for exiting the program"""
         sys.exit()
 
     def start_communicator(self):
+        """tells a player if he is player 1 or 2"""
         if (self.rand_start == 0):
             messagebox.showinfo("Player initialization", "Randomly chosen Player 1 to start")
         elif (self.rand_start == 1):
             messagebox.showinfo("Player initialization", "Randomly chosen the Computer to start")
 
     def clear_game(self, event):
+        """clears the game"""
         for k in self.tiles_dict:
             self.undo_func(event)
 
     def ai_controller(self, event):
+        """Ai Controller
+
+        Uses the three functions (mod_get_score_row, mod_get_score_column and make_self_decision
+        above to work, and emits a click signal to a specific label
+        """
         if (self.call_counter == 0):
             self.start_communicator()
             self.clear_game(event)
@@ -586,7 +624,7 @@ class PahTumAI():
         slaves_list.extend(self.root.grid_slaves())
         slaves_list.reverse()
         slaves_list = slaves_list[0: 48]
-        if (self.tic < 49):
+        if (self.tic < 49 - int(self.blocked_numb.get())):
             if (self.tic % 2 != self.rand_start):
 
                 if (self.mod_get_score_row() == -1 and
