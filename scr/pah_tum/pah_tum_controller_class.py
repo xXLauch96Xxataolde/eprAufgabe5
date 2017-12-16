@@ -62,19 +62,19 @@ class PahTum():
                 self.a.grid(row=i, column=j)
 
         self.tic_label = tk.Label(self.root, text="Tic: ", width=6, height=3,
-                                  bg="plum2", borderwidth=1, relief="solid")
+                                  bg="plum2", borderwidth=1)
         self.tic_label.grid(row=0, column=8)
 
         self.score_label_1 = tk.Label(self.root, text="Score: ", width=6, height=3,
-                                      bg="palegreen", borderwidth=1, relief="solid")
+                                      bg="palegreen", borderwidth=1)
         self.score_label_1.grid(row=1, column=8)
 
         self.score_label_2 = tk.Label(self.root, text="Score: ", width=6, height=3,
-                                      bg="tomato", borderwidth=1, relief="solid")
+                                      bg="tomato", borderwidth=1)
         self.score_label_2.grid(row=2, column=8)
 
         self.undo_label = tk.Label(self.root, text="Undo", width=6, height=3,
-                                   bg="mediumpurple2", borderwidth=1, relief="solid")
+                                   bg="mediumpurple2", borderwidth=1 )
         self.undo_label.grid(row=3, column=8)
         self.undo_label.bind("<Button-1>", self.undo_func)  # Undo Button constructed
 
@@ -84,7 +84,7 @@ class PahTum():
         self.restart_label.bind("<Button-1>", self.restart)  # Restart Button constructed
 
         self.exit_label = tk.Label(self.root, text="Exit", width=6, height=3,
-                                   bg="grey", borderwidth=1, relief="solid")
+                                   bg="grey", borderwidth=1)
         self.exit_label.grid(row=6, column=8)
         self.exit_label.bind("<Button-1>", self.exit)  # Exit Button constructed
 
@@ -148,7 +148,7 @@ class PahTum():
                     self.inc_tic(self.tic)
                     tic_str = "Tic: " + str(self.read_tic())
                     self.tic_label.config(text=tic_str)
-                    print(self.tiles_dict)
+                    # print(self.tiles_dict)
                     self.move_list.append(self.label_coordinator(event.widget))
 
             else:
@@ -159,7 +159,7 @@ class PahTum():
                     self.inc_tic(self.tic)
                     tic_str = "Tic: " + str(self.read_tic())
                     self.tic_label.config(text=tic_str)
-                    print(self.tiles_dict)
+                    # print(self.tiles_dict)
                     self.move_list.append(self.label_coordinator(event.widget))
 
             self.get_score()
