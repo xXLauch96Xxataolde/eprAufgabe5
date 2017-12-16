@@ -10,17 +10,17 @@ from tkinter import PhotoImage
 from tkinter import messagebox
 import sys
 import os
-from pah_tum.pah_tum_controller import color_change
+# from pah_tum.pah_tum_controller import color_change
 import time
+from tkinter.messagebox import showwarning
 
-__author__ = "123456: John Cleese, 654321: Terry Gilliam"  # put your data here
+__author__ = "6785468: Robert am Wege, 6770541: Niels Heissel"
 __copyright__ = "Copyright 2017/2018 - EPR-Goethe-Uni"
-__credits__ = "If you would like to thank somebody \
-              i.e. an other student for her code or leave it out"
-__email__ = "your email address"
+__credits__ = ""
+__email__ = "uni.goethe.horde@gmail.com"
 
 
-class PahTum():
+class PahTumAI():
     tiles_dict = {}
     move_list = []
     game_mode = 0
@@ -28,8 +28,6 @@ class PahTum():
     call_counter = 0  # to count the number of calls for ai_controller
 
     def __init__(self, root, tic=0):
-
-        print("PAH TUM 2")
         self.root = root
         self.tic = tic
         self.root.attributes("-topmost", True)  # put the root to foreground
@@ -44,7 +42,7 @@ class PahTum():
         self.blocked_numb = tk.StringVar(self.wait)
         self.blocked_numb.set("Select number")  # initial value
         self.blocked_tiles = ttk.OptionMenu(
-            self.wait, self.blocked_numb, "0", "5", "7", "9", "11", "13")
+            self.wait, self.blocked_numb, "5", "7", "9", "11", "13")
         self.click = tk.Button(self.wait, text="OK", command=self.enter_configs)
         self.label_1.pack()
         self.blocked_tiles.pack()
@@ -78,7 +76,7 @@ class PahTum():
         self.undo_label.grid(row=3, column=8)
         self.undo_label.bind("<Button-1>", self.undo_func)  # Undo Button constructed
 
-        self.ai_label = tk.Label(self.root, text="P v AI", width=6, height=3,
+        self.ai_label = tk.Label(self.root, text="START", width=6, height=3,
                                  bg="firebrick", borderwidth=1, cursor="gumby")
         self.ai_label.grid(row=4, column=8)
         self.ai_label.bind("<Button-1>", self.ai_controller)  # Ai Mode Button constructed
@@ -99,6 +97,7 @@ class PahTum():
         self.rand_start_assigner()  # generates the starting player for ai game mode
 
     def restart(self, event):
+        self.root.destroy()
         python = sys.executable
         os.execl(python, python, * sys.argv)
 
@@ -140,7 +139,9 @@ class PahTum():
         self.tic = (a + 1)
 
     def color_change(self, event):
-        if (self.tic < 49):
+        if (self.call_counter == 0):
+            showwarning("Start", "Please press Start on the right")
+        elif (self.tic < 49):
             print("something", event.widget)
 
             print("Tic", self.tic)
@@ -284,7 +285,6 @@ class PahTum():
                 else:
                     possible_score += "_"
 
-
             if (possible_score.count(player * 7) != 0):
                 row_score += 119
             elif (possible_score.count(player * 6) != 0):
@@ -298,7 +298,7 @@ class PahTum():
 
         return (row_score)
 
-    def mod_get_score_row(self, player):
+    def mod_get_score_row(self):
         for i in range(7):
             possible_score = ""
             for j in range(7):
@@ -341,6 +341,19 @@ class PahTum():
                     elif(possible_score.find("B_B") != -1):
                         possible_key = str(i) + str(possible_score.find("B_B") + 1)
                         return(possible_key)
+                elif (possible_score.find("_BB") != -1):
+                    if(possible_score.find("B_B") != -1):
+                        possible_key = str(i) + str(possible_score.find("B_B") + 1)
+                        return(possible_key)
+                    elif(possible_score.find("_BB") != -1):
+                        possible_key = str(i) + str(possible_score.find("_BB"))
+                        return(possible_key)
+                    elif(possible_score.find("BB_") != -1):
+                        possible_key = str(i) + str(possible_score.find("BB_") + 2)
+                        return(possible_key)
+                    elif(possible_score.find("B_B") != -1):
+                        possible_key = str(i) + str(possible_score.find("B_B") + 1)
+                        return(possible_key)
             elif (self.rand_start == 0):
                 if (possible_score.find("A_A") != -1):
                     if(possible_score.find("A_A") != -1):
@@ -368,9 +381,22 @@ class PahTum():
                     elif(possible_score.find("A_A") != -1):
                         possible_key = str(i) + str(possible_score.find("A_A") + 1)
                         return(possible_key)
+                elif (possible_score.find("_AA") != -1):
+                    if(possible_score.find("A_A") != -1):
+                        possible_key = str(i) + str(possible_score.find("A_A") + 1)
+                        return(possible_key)
+                    elif(possible_score.find("_AA") != -1):
+                        possible_key = str(i) + str(possible_score.find("_AA"))
+                        return(possible_key)
+                    elif(possible_score.find("AA_") != -1):
+                        possible_key = str(i) + str(possible_score.find("AA_") + 2)
+                        return(possible_key)
+                    elif(possible_score.find("A_A") != -1):
+                        possible_key = str(i) + str(possible_score.find("A_A") + 1)
+                        return(possible_key)
         return -1
 
-    def mod_get_score_column(self, player):
+    def mod_get_score_column(self):
         for j in range(7):
             possible_score = ""
             for i in range(7):
@@ -421,6 +447,23 @@ class PahTum():
                         possible_key = str(j) + str(possible_score.find("B_B") + 1)
                         print("Place Stone here", possible_key)
                         return(possible_key)
+                elif (possible_score.find("_BB") != -1):
+                    if(possible_score.find("B_B") != -1):
+                        possible_key = str(j) + str(possible_score.find("B_B") + 1)
+                        print("Place Stone here", possible_key)
+                        return(possible_key)
+                    elif(possible_score.find("_BB") != -1):
+                        possible_key = str(j) + str(possible_score.find("_BB"))
+                        print("Place Stone here", possible_key)
+                        return(possible_key)
+                    elif(possible_score.find("BB_") != -1):
+                        possible_key = str(j) + str(possible_score.find("BB_") + 2)
+                        print("Place Stone here", possible_key)
+                        return(possible_key)
+                    elif(possible_score.find("B_B") != -1):
+                        possible_key = str(j) + str(possible_score.find("B_B") + 1)
+                        print("Place Stone here", possible_key)
+                        return(possible_key)
             elif (self.rand_start == 0):
                 if (possible_score.find("A_A") != -1):
                     if(possible_score.find("A_A") != -1):
@@ -456,9 +499,26 @@ class PahTum():
                         possible_key = str(j) + str(possible_score.find("A_A") + 1)
                         print("Place Stone here", possible_key)
                         return(possible_key)
+                elif (possible_score.find("_AA" * 2) != -1):
+                    if(possible_score.find("A_A") != -1):
+                        possible_key = str(j) + str(possible_score.find("A_A") + 1)
+                        print("Place Stone here", possible_key)
+                        return(possible_key)
+                    elif(possible_score.find("_AA") != -1):
+                        possible_key = str(j) + str(possible_score.find("_AA"))
+                        print("Place Stone here", possible_key)
+                        return(possible_key)
+                    elif(possible_score.find("AA_") != -1):
+                        possible_key = str(j) + str(possible_score.find("AA_") + 2)
+                        print("Place Stone here", possible_key)
+                        return(possible_key)
+                    elif(possible_score.find("A_A") != -1):
+                        possible_key = str(j) + str(possible_score.find("A_A") + 1)
+                        print("Place Stone here", possible_key)
+                        return(possible_key)
         return -1
 
-    def make_self_decision(self, player):
+    def make_self_decision(self):
         for i in range(7):
             possible_place = ""
             for j in range(7):
@@ -474,7 +534,6 @@ class PahTum():
                     possible_place += "_"
 
             print("Row  :", i, possible_place)
-            print("Find :", i, possible_place.find("_"))
             if(possible_place.find("_") > -1):
                 possible_place = str(i) + str(possible_place.find("_"))
                 return(possible_place)
@@ -502,7 +561,6 @@ class PahTum():
         self.toplevel.geometry('+920+70')
 
     def exit(self, event):
-        # self.autism(event)
         sys.exit()
 
     def start_communicator(self):
@@ -528,22 +586,24 @@ class PahTum():
         slaves_list = slaves_list[0: 48]
         if (self.tic < 49):
             if (self.tic % 2 != self.rand_start):
-    
-                if (self.mod_get_score_row("player" + str(self.rand_start)) == -1 and
-                        self.mod_get_score_column("player" + str(self.rand_start)) == -1):
-    
-                    a = self.make_self_decision("player" + str(self.rand_start))
+
+                if (self.mod_get_score_row() == -1 and
+                        self.mod_get_score_column() == -1):
+
+                    a = self.make_self_decision()
                     a = int(a[0]) * 7 + int(a[1])
+                    print("A List Index: ", a)
                     print(slaves_list[a].event_generate("<Button-1>"))
-    
-                elif (self.mod_get_score_column("player" + str(self.rand_start)) == -1):
-                    a = self.mod_get_score_row("player" + str(self.rand_start))  # returns int
+
+                elif (self.mod_get_score_column() == -1):
+                    a = self.mod_get_score_row()  # returns int
                     a = int(a[0]) * 7 + int(a[1])
+                    print("B List Index: ", a)
                     print(slaves_list[a].event_generate("<Button-1>"))
                 else:
-                    a = self.mod_get_score_column("player" + str(self.rand_start))  # returns int
+                    a = self.mod_get_score_column()  # returns int
                     a = int(a[0]) + int(a[1]) * 7
-                    print("List Index: ",a)
+                    print("C List Index: ", a)
                     print(slaves_list[a].event_generate("<Button-1>"))
 
     def __del__(self):

@@ -74,7 +74,6 @@ class PahTum():
         self.ai_label = tk.Label(self.root, text="P v AI", width=6, height=3,
                                  bg="firebrick", borderwidth=1, cursor="gumby")
         self.ai_label.grid(row=5, column=8)
-        self.ai_label.bind("<Button-1>", self.ai_controller)  # Ai Mode Button constructed
 
         self.exit_label = tk.Label(self.root, text="Exit", width=6, height=3,
                                    bg="grey", borderwidth=1, relief="solid")
@@ -319,18 +318,6 @@ class PahTum():
         elif (temp_rand_var == 1):
             messagebox.showinfo("Player initialization", "Random chose the Computer to start")
         return(temp_rand_var)
-
-    def ai_controller(self, event):
-        temp_rand_var = self.random_start()
-        slaves_list = []
-        slaves_list.extend(self.root.grid_slaves())
-        slaves_list.reverse()
-        slaves_list = slaves_list[0: 49]
-        print(slaves_list)
-        if (self.tic < 49):
-            #if (temp_rand_var == 0 and self.tic % 2 == 0):
-            #if (event.widget in slaves_list):
-            print("PEEEEEEEEEEEEEEEEEEEEEEEEENIS", event.widget)
 
     def __del__(self):
         print("Instance deleted.")

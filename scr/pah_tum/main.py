@@ -6,49 +6,68 @@ Additional information if required and more infos. Complete sentences please.
 import random
 import pah_tum_controller
 import sys
-#from pah_tum_controller_class import PahTum
-from pah_tum_controller_class2 import PahTum
+from pah_tum_controller_class import PahTum
+from pah_tum_controller_class2 import PahTumAI
 import tkinter as tk
 
-__author__ = "123456: John Cleese, 654321: Terry Gilliam"  # put your data here
-__copyright__ = "Copyright 2017/2018 - EPR-Goethe-Uni" 
-__credits__ = "If you would like to thank somebody \
-              i.e. an other student for her code or leave it out" 
-__email__ = "your email address" 
+
+__author__ = "6785468: Robert am Wege, 6770541: Niels Heissel"
+__copyright__ = "Copyright 2017/2018 - EPR-Goethe-Uni"
+__credits__ = ""
+__email__ = "uni.goethe.horde@gmail.com"
+
 
 def menue():
     """a procedure for printing a menue we assume"""
-    
-    print("...Welcome to the Menue................")
-    print(".......................................")
-    print("...Press 1 to start Pah Tum TUI Mode...")
-    print("...Press 2 to start Pah Tum GUI Mode...")
-    print("...Press 3 to see the manual...........")
-    print("...Press 4 for help....................")
-    print("...Press 5 to Exit.....................")
-    print(".......................................")
-    print(".......................................")
+
+    print("...Welcome to the Menue....................")
+    print("...........................................")
+    print("...Press 1 to start Pah Tum TUI Mode.......")
+    print("...Press 2 to start Pah Tum GUI PvP Mode...")
+    print("...Press 3 to start Pah Tum GUI AI Mode....")
+    print("...Press 4 to see the manual...............")
+    print("...Press 5 for help........................")
+    print("...Press 6 to Exit.........................")
+    print("...........................................")
+    print("...........................................")
+
+
+def helpings():
+    """Procedure for opening a file and printing it to the console."""
+
+    print("\n")
+    fobj = open("game-manual.txt")
+    for line in fobj:
+        print(line.rstrip())
+
+    print("\n")
+    fobj.close()
+    print("Press any button to exit\n")
 
 
 def main():
-    # delete at end of construction work
-    root = tk.Tk()
-    obj = PahTum(root)
-    root.mainloop()
-    # delete part above - Wear your hard hat
+    inp = ""
     while(True):
         menue()
         inp = input()
         if (inp == "1"):
             pah_tum_controller.controller()
-        if (inp == "2"):
+        elif (inp == "2"):
             root = tk.Tk()
             obj = PahTum(root)
             root.mainloop()
-        if (inp == "5"):
-            pah_tum_controller.autism()
+        elif (inp == "3"):
+            root = tk.Tk()
+            obj = PahTumAI(root)
+            root.mainloop()
+        elif (inp == "4"):
+            helpings()
+        elif (inp == "5"):
+            print("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEELP")
+        elif (inp == "6"):
             sys.exit()
+        else:
+            print("Wrong Input. Choose a number between 1 and 6, please\n")
 
 if __name__ == '__main__':
     main()
-
