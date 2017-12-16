@@ -9,6 +9,8 @@ from tkinter import ttk
 from tkinter import PhotoImage
 from tkinter import messagebox
 import sys
+import os
+import pah_tum_controller_class2
 
 __author__ = "6785468: Robert am Wege, 6770541: Niels Heissel"
 __copyright__ = "Copyright 2017/2018 - EPR-Goethe-Uni"
@@ -73,7 +75,13 @@ class PahTum():
 
         self.ai_label = tk.Label(self.root, text="P v AI", width=6, height=3,
                                  bg="firebrick", borderwidth=1, cursor="gumby")
-        self.ai_label.grid(row=5, column=8)
+        self.ai_label.bind("<Button-1>", self.ai_start)
+        self.ai_label.grid(row=4, column=8)
+
+        self.restart_label = tk.Label(self.root, text="Restart", width=6, height=3,
+                                   bg="grey", borderwidth=1)
+        self.restart_label.grid(row=5, column=8)
+        self.restart_label.bind("<Button-1>", self.restart)  # Restart Button constructed
 
         self.exit_label = tk.Label(self.root, text="Exit", width=6, height=3,
                                    bg="grey", borderwidth=1, relief="solid")
@@ -318,6 +326,16 @@ class PahTum():
         elif (temp_rand_var == 1):
             messagebox.showinfo("Player initialization", "Random chose the Computer to start")
         return(temp_rand_var)
+
+    def restart(self, event):
+        "something with an exit code maybe"
+        python = sys.executable
+        os.execl(python, python, * sys.argv)
+
+    def ai_start(self, event):
+        self.root.destroy()
+        root = tk.Tk()
+        obj = pah_tum_controller_class2.PahTumAI(root)
 
     def __del__(self):
         print("Instance deleted.")

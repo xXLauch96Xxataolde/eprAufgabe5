@@ -81,10 +81,10 @@ class PahTumAI():
         self.ai_label.grid(row=4, column=8)
         self.ai_label.bind("<Button-1>", self.ai_controller)  # Ai Mode Button constructed
 
-        self.exit_label = tk.Label(self.root, text="Restart", width=6, height=3,
+        self.restart_label = tk.Label(self.root, text="Restart", width=6, height=3,
                                    bg="grey", borderwidth=1)
-        self.exit_label.grid(row=5, column=8)
-        self.exit_label.bind("<Button-1>", self.restart)  # Restart Button constructed
+        self.restart_label.grid(row=5, column=8)
+        self.restart_label.bind("<Button-1>", self.restart)  # Restart Button constructed
 
         self.exit_label = tk.Label(self.root, text="Exit", width=6, height=3,
                                    bg="grey", borderwidth=1)
@@ -95,6 +95,8 @@ class PahTumAI():
 
         self.tiles_dict_constructor()
         self.rand_start_assigner()  # generates the starting player for ai game mode
+
+
 
     def restart(self, event):
         "something with an exit code maybe"
