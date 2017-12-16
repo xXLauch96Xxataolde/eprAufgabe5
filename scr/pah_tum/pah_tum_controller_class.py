@@ -23,6 +23,11 @@ class PahTum():
     move_list = []
 
     def __init__(self, root, tic=0):
+        """The Constructor
+
+        Called from the main, and handed over a tk root, which is the basis for the window.
+        In the constructor we bind every widget to its belonging root window
+        """
         self.root = root
         self.tic = tic
         self.root.attributes("-topmost", True)  # put the root to foreground
@@ -73,13 +78,8 @@ class PahTum():
         self.undo_label.grid(row=3, column=8)
         self.undo_label.bind("<Button-1>", self.undo_func)  # Undo Button constructed
 
-        self.ai_label = tk.Label(self.root, text="P v AI", width=6, height=3,
-                                 bg="firebrick", borderwidth=1, cursor="gumby")
-        self.ai_label.bind("<Button-1>", self.ai_start)
-        self.ai_label.grid(row=4, column=8)
-
         self.restart_label = tk.Label(self.root, text="Restart", width=6, height=3,
-                                   bg="grey", borderwidth=1)
+                                      bg="grey", borderwidth=1)
         self.restart_label.grid(row=5, column=8)
         self.restart_label.bind("<Button-1>", self.restart)  # Restart Button constructed
 
@@ -88,15 +88,16 @@ class PahTum():
         self.exit_label.grid(row=6, column=8)
         self.exit_label.bind("<Button-1>", self.exit)  # Exit Button constructed
 
-        print(self.root.grid_slaves())
+        # print(self.root.grid_slaves())
         self.root.mainloop
 
         self.tiles_dict_constructor()
-        print(self.tiles_dict)
+        # print(self.tiles_dict)
 
-        print(self.coord_to_tile_number("15"))
+        # print(self.coord_to_tile_number("15"))
 
     def enter_configs(self):
+        """reads the choosen blocked tiles"""
         if self.blocked_numb.get() == "Select number":
             self.label_1.config(text="Please select from dropdown!")
         else:
@@ -105,8 +106,9 @@ class PahTum():
             self.root.deiconify()
 
     def undo_func(self, event):
+        """this func allow to reverse every step until tic = 0 """
         if len(self.move_list) != 0:
-            print(self.move_list)
+            # print(self.move_list)
             slaves_list = []
             slaves_list.extend(self.root.grid_slaves())
             slaves_list.reverse()
@@ -120,18 +122,21 @@ class PahTum():
             self.get_score()
 
     def read_tic(self):
+        """reads the tic"""
         return self.tic
 
     def inc_tic(self, tic):
+        """increases the tic"""
         a = self.read_tic()
         self.tic = (a + 1)
 
     def color_change(self, event):
+        """Partly a core function. recolors every label, keeps the score, increases the tic"""
 
-        if (self.tic < 3):
-            print("something", event.widget)
+        if (self.tic < 49 - int(self.blocked_numb.get())):
+            # print("something", event.widget)
 
-            print("Tic", self.tic)
+            # print("Tic", self.tic)
 
             self.label_coordinator(event.widget)
 
@@ -159,38 +164,29 @@ class PahTum():
 
             self.get_score()
         else:
-            winner_string = " "
-            messagebox.showinfo("WINNER", winner_string)
-
-    def autism(self):
-        """Autism - to be renamed
-
-        Here we should either open n = NN>0 Windows or more in sequence or openn windows all together
-        We have to load special images for each a = root object. Like buy viagra, sexy girls in your neihghbourhood
-        lets find out bilals address to get him spooked a little bit.
-        Sexy girls in (Bilals Area) are looking for fun
-        Sexy Boooooooiz in Bilals Area are looking for hook up
-        Buy our Kitchen Aid for 299
-
-        """
-        for i in range(2):
-            a = tk.Tk()
-            a.attributes("-topmost", True)
-            photo = PhotoImage(file="cat.gif")
-            w = tk.Label(a, image=photo)
-            w.photo = photo
-            w.pack()
+            score1, score2 = self.get_score()
+            if (score1 > score2):
+                winner_string = "Congrats Player1, you are the Winner"
+                messagebox.showinfo("WINNER", winner_string)
+            elif (score1 < score2):
+                winner_string = "Congrats Player2, you are the Winner"
+                messagebox.showinfo("WINNER", winner_string)
+            else:
+                winner_string = "Congrats you are both Winners"
+                messagebox.showinfo("WINNER", winner_string)
 
     def controller(self):
         print("Controller does nothing.")
 
     def tiles_dict_constructor(self):
+        """wirtes every tile into a dict"""
         for i in range(7):
             for j in range(7):
                 a = str(i) + str(j)
                 self.tiles_dict[a] = ""
 
     def label_coordinator(self, label_widget):
+        """Allows to transform a coordinate into a tiles number"""
         if len(str(label_widget)) == 9:
             coordninates = str(label_widget)[-2:]
         elif len(str(label_widget)) == 8:
@@ -206,13 +202,15 @@ class PahTum():
         return str(dict_key1) + str(dict_key2)
 
     def on_enter(self, event):
+        """if a tile is blocked, tic label shows blocked"""
         self.tic_label.configure(text="Blocked")
 
     def on_leave(self, event):
+        """reverses the on_enter effect"""
         self.tic_label.configure(text="Tic: " + str(self.read_tic()))
 
     def tiles_blocker(self):
-
+        """blocks the tiles"""
         tiles_number_to_block = int(self.blocked_numb.get())
 
         slaves_list = []
@@ -232,17 +230,19 @@ class PahTum():
             self.tiles_dict[key] = "blocked"
 
             key = self.coord_to_tile_number(key)
-            print(key)
+            # print(key)
             slaves_list[int(key) - 1].config(bg="ivory")
-            print(slaves_list[int(key) - 1])
+            # print(slaves_list[int(key) - 1])
             slaves_list[int(key) - 1].bind("<Enter>", self.on_enter)
             slaves_list[int(key) - 1].bind("<Leave>", self.on_leave)
 
     def coord_to_tile_number(self, coord):
+        """translates a tile to a coordinate"""
         tile_number = str(int(coord[0]) * 7 + int(coord[1]) + 1)
         return tile_number
 
     def get_score_column(self, player):
+        """Function to add and return all possible column scores"""
         column_score = 0
         for j in range(7):
             possible_score = ""
@@ -269,6 +269,7 @@ class PahTum():
         return (column_score)
 
     def get_score_row(self, player):
+        """Function to add and return all possible row scores"""
         row_score = 0
         for i in range(7):
             possible_score = ""
@@ -297,6 +298,7 @@ class PahTum():
         return (row_score)
 
     def get_score(self):
+        """Combines row and column score and prints it to a score label"""
         total_score_1 = 0
         row_score_1 = self.get_score_row("player1")
         column_score_1 = self.get_score_column("player1")
@@ -308,7 +310,7 @@ class PahTum():
         column_score_2 = self.get_score_column("player2")
         total_score_2 += row_score_2 + column_score_2
         self.score_label_2.config(text=str(total_score_2))
-
+        return(total_score_1, total_score_2)
     def game_over(self):
         self.toplevel = tk.Toplevel()
         self.label1 = tk.Label(self.toplevel, text="Game Over", height=6, width=18)
@@ -319,23 +321,10 @@ class PahTum():
     def exit(self, event):
         sys.exit()
 
-    def random_start(self):
-        temp_rand_var = random.randint(0, 1)
-        if (temp_rand_var == 0):
-            messagebox.showinfo("Player initialization", "Random chose Player 1 to start")
-        elif (temp_rand_var == 1):
-            messagebox.showinfo("Player initialization", "Random chose the Computer to start")
-        return(temp_rand_var)
-
     def restart(self, event):
         "something with an exit code maybe"
         python = sys.executable
         os.execl(python, python, * sys.argv)
-
-    def ai_start(self, event):
-        self.root.destroy()
-        root = tk.Tk()
-        obj = pah_tum_controller_class2.PahTumAI(root)
 
     def __del__(self):
         print("Instance deleted.")

@@ -146,7 +146,7 @@ class PahTumAI():
         self.tic = (a + 1)
 
     def color_change(self, event):
-
+        """Partly a core function. recolors every label, keeps the score, increases the tic"""
         if (self.call_counter == 0):
             showwarning("Start", "Please press Start on the right")
 
@@ -186,7 +186,7 @@ class PahTumAI():
                 winner_string = "Congrats Player2, you are the Winner"
                 messagebox.showinfo("WINNER", winner_string)
             else:
-                winner_string = "Congrats y0u are both Winners"
+                winner_string = "Congrats you are both Winners"
                 messagebox.showinfo("WINNER", winner_string)
 
         if (self.game_mode == 1):
