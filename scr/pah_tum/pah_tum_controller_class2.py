@@ -568,7 +568,7 @@ class PahTumAI():
                     possible_place += "_"
 
             print("Row  :", i, possible_place)
-            if(possible_place.find("_") > -1):
+            if (possible_place.find("_") > -1):
                 possible_place = str(i) + str(possible_place.find("_"))
                 return(possible_place)
             else:
