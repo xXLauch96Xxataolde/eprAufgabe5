@@ -56,35 +56,35 @@ class PahTum():
             for j in range(7):
                 count += 1
                 self.a = "l" + str(i + 1) + str(j + 1)
-                self.a = tk.Label(self.root, text=self.a, width=6, height=3,
-                                  bg="light cyan", borderwidth=0.5)
+                self.a = tk.Label(self.root, width=6, height=3,
+                                  bg="light cyan", highlightthickness=1, highlightbackground= "grey")
                 self.a.bind("<Button-1>", self.color_change)
                 self.a.grid(row=i, column=j)
 
         self.tic_label = tk.Label(self.root, text="Tic: ", width=6, height=3,
-                                  bg="plum2", borderwidth=1)
+                                  bg="plum2", highlightthickness=1, highlightbackground= "grey")
         self.tic_label.grid(row=0, column=8)
 
         self.score_label_1 = tk.Label(self.root, text="Score: ", width=6, height=3,
-                                      bg="palegreen", borderwidth=1)
+                                      bg="palegreen", highlightthickness=1, highlightbackground= "grey")
         self.score_label_1.grid(row=1, column=8)
 
         self.score_label_2 = tk.Label(self.root, text="Score: ", width=6, height=3,
-                                      bg="tomato", borderwidth=1)
+                                      bg="tomato", highlightthickness=1, highlightbackground= "grey")
         self.score_label_2.grid(row=2, column=8)
 
         self.undo_label = tk.Label(self.root, text="Undo", width=6, height=3,
-                                   bg="mediumpurple2", borderwidth=1 )
+                                   bg="mediumpurple2", highlightthickness=1, highlightbackground= "grey")
         self.undo_label.grid(row=3, column=8)
         self.undo_label.bind("<Button-1>", self.undo_func)  # Undo Button constructed
 
         self.restart_label = tk.Label(self.root, text="Restart", width=6, height=3,
-                                      bg="grey", borderwidth=1)
+                                      bg="bisque2", highlightthickness=1, highlightbackground= "grey")
         self.restart_label.grid(row=5, column=8)
         self.restart_label.bind("<Button-1>", self.restart)  # Restart Button constructed
 
         self.exit_label = tk.Label(self.root, text="Exit", width=6, height=3,
-                                   bg="grey", borderwidth=1)
+                                   bg="SteelBlue", highlightthickness=1, highlightbackground= "grey")
         self.exit_label.grid(row=6, column=8)
         self.exit_label.bind("<Button-1>", self.exit)  # Exit Button constructed
 
@@ -231,7 +231,7 @@ class PahTum():
 
             key = self.coord_to_tile_number(key)
             # print(key)
-            slaves_list[int(key) - 1].config(bg="ivory")
+            slaves_list[int(key) - 1].config(bg="grey")
             # print(slaves_list[int(key) - 1])
             slaves_list[int(key) - 1].bind("<Enter>", self.on_enter)
             slaves_list[int(key) - 1].bind("<Leave>", self.on_leave)
